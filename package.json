@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/Tonio1987/Kraken_Skeleton/issues"
   },
-  "homepage": "https://github.com/Tonio1987/Kraken_Skeleton#readme"
+  "homepage": "https://github.com/Tonio1987/Kraken_Skeleton#readme",
+  "dependencies": {
+    "dotenv": "^9.0.2"
+  }
 }
