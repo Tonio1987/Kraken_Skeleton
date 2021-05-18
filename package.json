@@ -23,10 +23,14 @@
   },
   "homepage": "https://github.com/Tonio1987/Kraken_Skeleton#readme",
   "dependencies": {
+    "async": "^3.2.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "log4js": "^6.3.0",
+    "moment": "^2.29.1",
     "morgan": "^1.10.0",
+    "node-cron": "^3.0.0",
     "path": "^0.12.7"
   }
 }
