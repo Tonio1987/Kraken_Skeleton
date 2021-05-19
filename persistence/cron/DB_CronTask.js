@@ -1,5 +1,4 @@
 const moment = require('moment/moment');
-const MongoClient = require('mongodb').MongoClient;
 
 moment.locale('fr');
 
