@@ -7,7 +7,7 @@ const cron = require('node-cron');
 
 // INIT MYSQL MODULE
 var mysql = require('mysql');
-var pool  = mysql.createPool({
+var db_pool  = mysql.createPool({
   connectionLimit : 25,
   host            : process.env.DB_HOST,
   user            : process.env.DB_USER,
@@ -54,7 +54,7 @@ app.use('/', indexRouter);
 logger.info('-------> Scheduler initialization ...  ');
 
 const CTRL_CronScheduler = require('./controller/cron_controller/CTRL_CronScheduler');
-CTRL_CronScheduler.Init_CronScheduler();
+CTRL_CronScheduler.Init_CronScheduler(db_pool);
 
 // START MAIN SCHEDULER
 logger.info('-------> Main Scheduler initialization ...  ');
