@@ -5,7 +5,7 @@ moment.locale('fr');
 module.exports = {
     getCronTasks: function (callback, db_pool) {
         new Promise(function (resolve, reject) {
-            pool.query('SELECT * FROM TR_CRON_TASKS_CTK', function (error, results, fields) {
+            db_pool.query('SELECT * FROM TR_CRON_TASKS_CTK', function (error, results, fields) {
 				if (error){
 					reject(error);
 				}	
