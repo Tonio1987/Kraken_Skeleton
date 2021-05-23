@@ -20,6 +20,7 @@ module.exports = {
         });
 
         function STEP_DB_getCronTasks(db_pool) {
+			console.log(db_pool);
             DB_CronTask.getCronTasks(STEP_CRON_initTasksScheduler, db_pool);
         }
 
