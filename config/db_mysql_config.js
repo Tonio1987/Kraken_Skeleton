@@ -8,12 +8,12 @@ var pool  = mysql.createPool({
 });
 
 function getConnection(callback) {
-   pool.getConnection(function(err, connection) {
-   if (err) {
-       console.error('error connecting: ' + err.stack);
-       return;
-   }
-   callback(err, connection);
+	pool.getConnection(function(err, connection) {
+		if (err) {
+			console.error('error connecting: ' + err.stack);
+			return;
+		}
+		callback(err, connection);
+	});
 }
-
 module.exports = { getConnection };
