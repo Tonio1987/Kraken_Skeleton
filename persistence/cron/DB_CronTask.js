@@ -5,17 +5,17 @@ moment.locale('fr');
 module.exports = {
     getCronTasks: function (callback, pool) {
         new Promise(function (resolve, reject) {
-			
-			pool.getConnection(function(err, conn){
-				conn.query("SELECT * FROM TR_CRON_TASKS_CTK", function(error, rows) {
+			pool.getConnection((err, connection) => {
+				if (error){
+					reject(error);
+				}
+				console.log('connected as id ' + connection.threadId);
+				connection.query('SELECT * from users LIMIT 1', (err, rows) => {
+					connection.release(); // return the connection to pool
 					if (error){
 						reject(error);
 					}
-					
-					console.log(rows); 
-					console.log('The results is: ', fields);
-					conn.release();
-					resolve(rows);
+					console.log('The data from users table are: \n', rows);
 				});
 			});
         }).then(function(data){
