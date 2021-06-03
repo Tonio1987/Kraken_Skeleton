@@ -3,19 +3,18 @@ const moment = require('moment/moment');
 moment.locale('fr');
 
 module.exports = {
-    getCronTasks: function (callback, pool) {
+    getCronTasks: function (callback, db) {
         new Promise(function (resolve, reject) {
-			pool.getConnection((err, connection) => {
+			db.getConnection((err, conn) => {
 				if (error){
 					reject(error);
 				}
-				console.log('connected as id ' + connection.threadId);
-				connection.query('SELECT * from users LIMIT 1', (err, rows) => {
-					connection.release(); // return the connection to pool
+				conn.query('SELECT * from users LIMIT 1', (error, results, fields) => {
 					if (error){
 						reject(error);
 					}
-					console.log('The data from users table are: \n', rows);
+					console.log(results);
+					conn.release();
 				});
 			});
         }).then(function(data){

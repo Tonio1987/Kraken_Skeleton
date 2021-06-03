@@ -10,7 +10,7 @@ const CRON_scheduler = require('../../cron/CRON_scheduler');
 const DB_CronTask = require('../../persistence/cron/DB_CronTask');
 
 module.exports = {
-    Init_CronScheduler: function (pool) {
+    Init_CronScheduler: function (db) {
         async.waterfall([
             STEP_DB_getCronTasks,
             STEP_CRON_initTasksScheduler,
@@ -19,8 +19,8 @@ module.exports = {
             // Nothing to do here
         });
 
-        function STEP_DB_getCronTasks(pool) {
-            DB_CronTask.getCronTasks(STEP_CRON_initTasksScheduler, pool);
+        function STEP_DB_getCronTasks(db) {
+            DB_CronTask.getCronTasks(STEP_CRON_initTasksScheduler, db);
         }
 
         function STEP_CRON_initTasksScheduler(err, tasks) {
