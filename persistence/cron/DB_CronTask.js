@@ -12,6 +12,7 @@ module.exports = {
 				}
 				console.log(rows[0].example); 
 				console.log('The results is: ', fields);
+				pool.release();
 				resolve(rows);
 			});
 		
