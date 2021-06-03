@@ -6,7 +6,7 @@ require('dotenv').config();
 const cron = require('node-cron');
 
 // INIT MYSQL MODULE
-const pool = require('./config/db_mysql_config');
+const pool = require('./config/db_mysql_config').pool;
 
 // CALL WEB MODULES
 var express = require('express');
