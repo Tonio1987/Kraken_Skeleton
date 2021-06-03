@@ -7,13 +7,4 @@ var pool  = mysql.createPool({
   database        : process.env.DB_DATABASE
 });
 
-function getConnection(callback) {
-	pool.getConnection(function(err, connection) {
-		if (err) {
-			console.error('error connecting: ' + err.stack);
-			return;
-		}
-		callback(err, connection);
-	});
-}
-module.exports = { getConnection };
+module.exports.pool = pool;
