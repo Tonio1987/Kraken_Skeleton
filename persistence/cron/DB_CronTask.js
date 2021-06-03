@@ -3,7 +3,7 @@ const moment = require('moment/moment');
 moment.locale('fr');
 
 module.exports = {
-    getCronTasks: function (callback, db_pool) {
+    getCronTasks: function (callback, pool) {
         new Promise(function (resolve, reject) {
 			
 			pool.query('SELECT * FROM TR_CRON_TASKS_CTK', function(error, rows, fields) {
