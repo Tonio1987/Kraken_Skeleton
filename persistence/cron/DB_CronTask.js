@@ -5,7 +5,7 @@ moment.locale('fr');
 module.exports = {
     getCronTasks: function (callback, db_pool) {
         new Promise(function (resolve, reject) {
-			pool.getConnection(function(error, connection) {
+			db_pool.getConnection(function(error, connection) {
 				if (error){
 					reject(error);
 				}
