@@ -6,16 +6,18 @@ module.exports = {
     getCronTasks: function (callback, pool) {
         new Promise(function (resolve, reject) {
 			
-			pool.query('SELECT * FROM TR_CRON_TASKS_CTK', function(error, rows, fields) {
-				if (error){
-					reject(error);
-				}
-				console.log(rows[0].example); 
-				console.log('The results is: ', fields);
-				pool.release();
-				resolve(rows);
+			pool.getConnection(function(err, conn){
+				conn.query("SELECT * FROM TR_CRON_TASKS_CTK", function(error, rows) {
+					if (error){
+						reject(error);
+					}
+					
+					console.log(rows); 
+					console.log('The results is: ', fields);
+					conn.release();
+					resolve(rows);
+				});
 			});
-		
         }).then(function(data){
             callback(null, data);
         }).catch(function(err) {
