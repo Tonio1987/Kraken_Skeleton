@@ -5,19 +5,16 @@ moment.locale('fr');
 module.exports = {
     getCronTasks: function (callback, db_pool) {
         new Promise(function (resolve, reject) {
-			db_pool.getConnection(function(error, connection) {
+			
+			pool.query('SELECT * FROM TR_CRON_TASKS_CTK', function(error, rows, fields) {
 				if (error){
 					reject(error);
 				}
-				connection.query('SELECT * FROM TR_CRON_TASKS_CTK', function (error, results, fields) {
-					connection.release();
-					if (error){
-						reject(error);
-					}
-					console.log('The results is: ', results);
-					resolve(result);
-				});
+				console.log(rows[0].example); 
+				console.log('The results is: ', fields);
+				resolve(rows);
 			});
+		
         }).then(function(data){
             callback(null, data);
         }).catch(function(err) {
