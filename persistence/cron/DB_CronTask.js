@@ -6,6 +6,7 @@ module.exports = {
     getCronTasks: function (callback, db) {
 		console.log("db is a " + db);
 		db(function (err, con) {
+			console.log("con " + con);
 			if(err) {
 				callback(null, err);
 			}
