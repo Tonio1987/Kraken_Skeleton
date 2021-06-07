@@ -19,7 +19,7 @@ module.exports = {
 					callback(err, null);
 				}
 				console.log("RESULT IS : " + res);
-				callback(null, res);
+				callback(res);
 			});
 			
 		});
