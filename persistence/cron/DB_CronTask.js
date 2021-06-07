@@ -14,7 +14,7 @@ module.exports = {
 			}
 			var userQuery = 'SELECT * FROM TR_CRON_TASKS_CTK;';
 			console.log("con: " + con); 
-			con.query(userQuery, function(err,user){
+			con.query(userQuery, function(err, res){
 				if(err) {
 					console.log("err: " + err); 
 					callback(null, err);
