@@ -23,16 +23,16 @@ module.exports = {
             DB_CronTask.getCronTasks(STEP_CRON_initTasksScheduler);
         }
 
-        function STEP_CRON_initTasksScheduler(err, tasks) {
-            if(!err){
-                CRON_scheduler.initTasksScheduler(STEP_finish, tasks);
+        function STEP_CRON_initTasksScheduler(result, err_detection) {
+            if(err_detection == 0){
+                CRON_scheduler.initTasksScheduler(STEP_finish, result);
             }else{
-                STEP_finish(err, null);
+                STEP_finish(result, 1);
             }
         }
 
-        function STEP_finish(err, data) {
-            if (err) {
+        function STEP_finish(result, err_detection) {
+            if (err_detection == 1) {
                 logger.error(err);
                 logger.error('*** CONTROLLER *** ->  Process Load CRON Tasks ... [ FAILED ]');
             }
@@ -48,19 +48,19 @@ module.exports = {
         });
 
         function STEP_DB_getCronTasks() {
-            DB_CronTask.getCronTasks(STEP_CRON_reloadTasksScheduler);
+            DB_CronTask.getCronTasks(STEP_CRON_initTasksScheduler);
         }
 
-        function STEP_CRON_reloadTasksScheduler(err, tasks) {
-            if(!err){
-                CRON_scheduler.reloadTasksScheduler(STEP_finish, tasks);
+        function STEP_CRON_initTasksScheduler(result, err_detection) {
+            if(err_detection == 0){
+                CRON_scheduler.initTasksScheduler(STEP_finish, result);
             }else{
-                STEP_finish(err, null);
+                STEP_finish(result, 1);
             }
         }
 
-        function STEP_finish(err, data) {
-            if (err) {
+        function STEP_finish(result, err_detection) {
+            if (err_detection == 1) {
                 logger.error(err);
                 logger.error('*** CONTROLLER *** ->  Process Load CRON Tasks ... [ FAILED ]');
             }
