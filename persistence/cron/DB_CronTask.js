@@ -8,7 +8,7 @@ module.exports = {
 		getConnection(function (err, con) {
 			if(err) { 
 				console.log("error on con: " + err); 
-				callback(err);
+				callback(err, 1);
 			}
 			var userQuery = 'SELECT * FROM TR_CRON_TASKS_CTK';
 			console.log(userQuery);
@@ -16,10 +16,10 @@ module.exports = {
 			con.query(userQuery, function(err, res){
 				if(err) {
 					console.log("error on query: " + err); 
-					callback(err);
+					callback(err, 1);
 				}
 				con.release();
-				callback(res);
+				callback(res, 0);
 			});
 			
 		});
