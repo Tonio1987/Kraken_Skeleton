@@ -7,7 +7,13 @@ const cron = require('node-cron');
 
 // INIT MYSQL MODULE
 const db = require('./config/db_mysql_config');
-
+db(function (err, con) {
+  if(err) { /* handle your error here */ }
+  var userQuery = 'select * from user';
+  console.log("con: " + con); //displays undefined
+  con.query(userQuery,function(err,user){
+  con.release();
+});
 
 // CALL WEB MODULES
 var express = require('express');
