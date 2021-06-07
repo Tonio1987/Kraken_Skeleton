@@ -10,7 +10,7 @@ module.exports = {
 				console.log("err: " + err); 
 				callback(null, err);
 			}
-			var userQuery = 'select * from TR_CRON_TASKS_CTK';
+			var userQuery = 'SELECT * FROM TR_CRON_TASKS_CTK;';
 			console.log("con: " + con); 
 			con.query(userQuery,function(err,res){
 				if(err) {

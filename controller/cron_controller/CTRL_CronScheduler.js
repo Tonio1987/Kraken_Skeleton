@@ -38,7 +38,7 @@ module.exports = {
             }
         }
     },
-    Reload_CronScheduler: function () {
+    Reload_CronScheduler: function (db) {
         async.waterfall([
             STEP_DB_getCronTasks,
             STEP_CRON_reloadTasksScheduler,
@@ -47,8 +47,8 @@ module.exports = {
             // Nothing to do here
         });
 
-        function STEP_DB_getCronTasks() {
-            DB_CronTask.getCronTasks(STEP_CRON_reloadTasksScheduler);
+        function STEP_DB_getCronTasks(db) {
+            DB_CronTask.getCronTasks(STEP_CRON_reloadTasksScheduler, db);
         }
 
         function STEP_CRON_reloadTasksScheduler(err, tasks) {
