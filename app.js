@@ -18,6 +18,7 @@ db(function (err, con) {
 });
 
 
+
 // CALL WEB MODULES
 var express = require('express');
 var path = require('path');
@@ -53,18 +54,10 @@ logger.info('------> Loading HTTP routes ...  ');
 var indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
+
 // SCHEDULER INITIALISATION
 logger.info('-------> Scheduler initialization ...  ');
 
-const CTRL_CronScheduler = require('./controller/cron_controller/CTRL_CronScheduler');
-CTRL_CronScheduler.Init_CronScheduler(db);
-
-// START MAIN SCHEDULER
-logger.info('-------> Main Scheduler initialization ...  ');
-
-cron.schedule('*/10 * * * * *', () => {
-    CTRL_CronScheduler.Reload_CronScheduler();
-});
 
 module.exports = app;
 
