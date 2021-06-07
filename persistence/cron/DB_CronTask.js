@@ -7,17 +7,17 @@ module.exports = {
 		var getConnection = require('../../config/db_mysql_config');
 		getConnection(function (err, con) {
 			if(err) { 
-				callback(null, err);
+				callback(err, null);
 			}
 			var userQuery = 'SELECT * FROM TR_CRON_TASKS_CTK;';
 			con.query(userQuery, function(err, res){
 				if(err) {
 					console.log("error here: " + err); 
-					callback(null, err);
+					callback(err, null);
 				}
 				console.log("RESULT IS : " + res);
 				con.release();
-				callback(res, null);
+				callback(null, res);
 			});
 		});
 	}
