@@ -5,8 +5,6 @@ require('dotenv').config();
 // CALL CRON MODULES 
 const cron = require('node-cron');
 
-// INIT MYSQL MODULE
-var db = require('./config/db_mysql_config');
 
 // CALL WEB MODULES
 var express = require('express');
@@ -48,7 +46,7 @@ app.use('/', indexRouter);
 logger.info('-------> Scheduler initialization ...  ');
 
 const CTRL_CronScheduler = require('./controller/cron_controller/CTRL_CronScheduler');
-CTRL_CronScheduler.Init_CronScheduler(db);
+CTRL_CronScheduler.Init_CronScheduler();
 
 // START MAIN SCHEDULER
 logger.info('-------> Main Scheduler initialization ...  ');

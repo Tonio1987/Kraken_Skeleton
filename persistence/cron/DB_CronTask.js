@@ -4,6 +4,8 @@ moment.locale('fr');
 
 module.exports = {
     getCronTasks: function (callback, db) {
+		var db = require('../../config/db_mysql_config');
+
 		console.log("db is a " + db);
 		db(function (err, con) {
 			console.log("con " + con);
