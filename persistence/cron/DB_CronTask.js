@@ -5,16 +5,18 @@ moment.locale('fr');
 module.exports = {
     getCronTasks: function (callback, db) {
         new Promise(function (resolve, reject) {
-			db.getConnection((err, conn) => {
-				if (error){
-					reject(error);
+			db(function (err, con) {
+				if(err) { 
+					reject(err);
 				}
-				conn.query('SELECT * from users LIMIT 1', (error, results, fields) => {
-					if (error){
-						reject(error);
+				var userQuery = 'select * from user';
+				console.log("con: " + con); //displays undefined
+				con.query(userQuery,function(err, res){
+					if(err) { 
+						reject(err);
 					}
-					console.log(results);
-					conn.release();
+					resolve(res);
+					con.release();
 				});
 			});
         }).then(function(data){
