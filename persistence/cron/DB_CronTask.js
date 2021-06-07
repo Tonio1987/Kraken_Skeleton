@@ -5,7 +5,7 @@ moment.locale('fr');
 module.exports = {
     getCronTasks: function (callback, db) {
 		console.log("db is a " + db);
-        new Promise(function (resolve, reject) {
+        new Promise(function (resolve, reject, db) {
 			console.log("enter promise");
 			db(function (err, con) {
 				if(err) {

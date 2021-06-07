@@ -8,9 +8,6 @@ const cron = require('node-cron');
 // INIT MYSQL MODULE
 const db = require('./config/db_mysql_config');
 
-
-
-
 // CALL WEB MODULES
 var express = require('express');
 var path = require('path');
