@@ -7,7 +7,7 @@ const cron = require('node-cron');
 
 // INIT MYSQL MODULE
 //const db = require('./config/db_mysql_config');
-
+const mysql = require('mysql');
 const db = mysql.createConnection({
   host            : process.env.DB_HOST,
   user            : process.env.DB_USER,
