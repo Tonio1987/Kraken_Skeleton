@@ -13,6 +13,7 @@ db(function (err, con) {
 	var userQuery = 'select * from user';
 	console.log("con: " + con); 
 	con.query(userQuery,function(err,user){
+	console.log(user);
 	con.release();
 	});
 });
