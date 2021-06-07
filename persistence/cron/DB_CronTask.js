@@ -22,6 +22,7 @@ module.exports = {
 				console.log(res);
 				callback(res, null);
 				con.release();
+			});
 		});
-    });
-}
+	}
+};
