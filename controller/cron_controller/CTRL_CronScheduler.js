@@ -48,12 +48,12 @@ module.exports = {
         });
 
         function STEP_DB_getCronTasks() {
-            DB_CronTask.getCronTasks(STEP_CRON_initTasksScheduler);
+            DB_CronTask.getCronTasks(STEP_CRON_reloadTasksScheduler);
         }
 
-        function STEP_CRON_initTasksScheduler(result, err_detection) {
+        function STEP_CRON_reloadTasksScheduler(result, err_detection) {
             if(err_detection == 0){
-                CRON_scheduler.initTasksScheduler(STEP_finish, result);
+                CRON_scheduler.reloadTasksScheduler(STEP_finish, result);
             }else{
                 STEP_finish(result, 1);
             }
