@@ -12,6 +12,7 @@ module.exports = {
 	getConnection: function (callback) {
 		pool.getConnection(function (err, connection) {
 			if(err) {
+				console.log(err);
 				callback(err);
 			}
 			callback(null, connection);

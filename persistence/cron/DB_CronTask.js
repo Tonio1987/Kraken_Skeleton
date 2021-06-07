@@ -7,7 +7,6 @@ module.exports = {
 		console.log("db is a " + db);
 		db(function (err, con) {
 			if(err) {
-				console.log("err: " + err); 
 				callback(null, err);
 			}
 			var userQuery = 'SELECT * FROM TR_CRON_TASKS_CTK;';
