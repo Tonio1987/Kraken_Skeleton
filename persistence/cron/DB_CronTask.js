@@ -21,7 +21,7 @@ module.exports = {
 				console.log("RESULT IS : " + res);
 				con.release();
 				
-				callback(null, res);
+				callback(err, res);
 			});
 		});
 	}
