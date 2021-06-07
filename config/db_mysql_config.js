@@ -8,7 +8,7 @@ const pool = mysql.createPool({
   database        : process.env.DB_DATABASE
 });
 
-module.exports {
+module.exports = {
 	getConnection : function (callback) {
 		pool.getConnection(function (err, connection) {
 			if(err) {
