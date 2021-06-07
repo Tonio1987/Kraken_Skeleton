@@ -9,12 +9,12 @@ const pool = mysql.createPool({
 });
 
 module.exports = {
-	getConnection : function (callback) {
+	getConnection: function (callback) {
 		pool.getConnection(function (err, connection) {
 			if(err) {
 				callback(err);
 			}
 			callback(null, connection);
 		});
-	};
+	}
 }
