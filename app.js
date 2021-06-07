@@ -12,11 +12,11 @@ db(function (err, con) {
 	if(err) {
 		console.log("err: " + err); 
 	}
-	var userQuery = 'select * from user';
+	var userQuery = 'select * from TR_CRON_TASKS_CTK';
 	console.log("con: " + con); 
-	con.query(userQuery,function(err,user){
-	console.log(user);
-	con.release();
+	con.query(userQuery,function(err,res){
+		console.log(res);
+		con.release();
 	});
 });
 
