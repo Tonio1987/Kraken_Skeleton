@@ -9,12 +9,13 @@ const cron = require('node-cron');
 const db = require('./config/db_mysql_config');
 
 db(function (err, con) {
-  if(err) {}
-  var userQuery = 'select * from user';
-  console.log("con: " + con); 
-  con.query(userQuery,function(err,user){
-  con.release();
-});
+	if(err) {}
+	var userQuery = 'select * from user';
+	console.log("con: " + con); 
+	con.query(userQuery,function(err,user){
+	con.release();
+	});
+}
 
 
 // CALL WEB MODULES
