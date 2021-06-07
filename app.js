@@ -15,7 +15,7 @@ db(function (err, con) {
 	con.query(userQuery,function(err,user){
 	con.release();
 	});
-}
+});
 
 
 // CALL WEB MODULES
