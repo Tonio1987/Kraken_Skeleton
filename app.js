@@ -8,17 +8,6 @@ const cron = require('node-cron');
 // INIT MYSQL MODULE
 const db = require('./config/db_mysql_config');
 
-db(function (err, con) {
-	if(err) {
-		console.log("err: " + err); 
-	}
-	var userQuery = 'select * from TR_CRON_TASKS_CTK';
-	console.log("con: " + con); 
-	con.query(userQuery,function(err,res){
-		console.log(res);
-		con.release();
-	});
-});
 
 
 
@@ -61,6 +50,15 @@ app.use('/', indexRouter);
 // SCHEDULER INITIALISATION
 logger.info('-------> Scheduler initialization ...  ');
 
+const CTRL_CronScheduler = require('./controller/cron_controller/CTRL_CronScheduler');
+CTRL_CronScheduler.Init_CronScheduler(db);
+
+// START MAIN SCHEDULER
+logger.info('-------> Main Scheduler initialization ...  ');
+
+cron.schedule('*/10 * * * * *', () => {
+    CTRL_CronScheduler.Reload_CronScheduler();
+});
 
 module.exports = app;
 
