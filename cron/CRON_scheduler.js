@@ -69,25 +69,24 @@ module.exports = {
    initTasksScheduler: function (callback, tasks) {
 	   console.log(tasks);
 	   console.log("length : "+tasks.length);
-       for(let i in tasks) {
-            if (tasks.hasOwnProperty(i)) {
-                let cron_expression = tasks[i].cron_expression;
-                let active = tasks[i].active;
-                let fctName = 'init_'+tasks[i].name.toString().trim();
+       for(let i=0; i<tasks.length; i++) {
+			let cron_expression = tasks[i].CTK_CRON_EXPR;
+			let active = tasks[i].ACTIVE;
+			let fctName = 'init_'+tasks[i].NAME.toString().trim();
+			console.log(cron_expression+" "+active+" "+fctName);
+			// INIT DU SCHEDULER
+			Handler[fctName](cron_expression);
 
-                // INIT DU SCHEDULER
-                Handler[fctName](cron_expression);
+			if(active === true){
+				fctName = 'start_'+tasks[i].NAME.toString().trim();
+				Handler[fctName](cron_expression);
+			}
 
-                if(active === true){
-                    fctName = 'start_'+tasks[i].name.toString().trim();
-                    Handler[fctName](cron_expression);
-                }
-
-                if(active === false){
-                    fctName = 'stop_'+tasks[i].name.toString().trim();
-                    Handler[fctName]();
-                }
-            }
+			if(active === false){
+				fctName = 'stop_'+tasks[i].NAME.toString().trim();
+				Handler[fctName]();
+			}
+            
         }
         callback(null, tasks);
     },
