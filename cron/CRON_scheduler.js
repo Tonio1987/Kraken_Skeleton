@@ -71,19 +71,19 @@ module.exports = {
 	   console.log("length : "+tasks.length);
        for(let i=0; i<tasks.length; i++) {
 			let cron_expression = tasks[i].CTK_CRON_EXPR;
-			let active = tasks[i].ACTIVE;
-			let fctName = 'init_'+tasks[i].NAME;
+			let active = tasks[i].CTK_ACTIVE;
+			let fctName = 'init_'+tasks[i].CTK_NAME;
 			console.log(cron_expression+" "+active+" "+fctName);
 			// INIT DU SCHEDULER
 			Handler[fctName](cron_expression);
 
 			if(active === true){
-				fctName = 'start_'+tasks[i].NAME;
+				fctName = 'start_'+tasks[i].CTK_NAME;
 				Handler[fctName](cron_expression);
 			}
 
 			if(active === false){
-				fctName = 'stop_'+tasks[i].NAME;
+				fctName = 'stop_'+tasks[i].CTK_NAME;
 				Handler[fctName]();
 			}
             
