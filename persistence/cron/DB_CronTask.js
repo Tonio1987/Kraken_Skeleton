@@ -23,7 +23,7 @@ module.exports = {
 					console.log("Connection released");
 					console.log(res);
 					resolve(res);
-				});	
+				});
 			});
 		}).then(function(data){
 			console.log("we have resolved");
@@ -33,4 +33,4 @@ module.exports = {
             callback(err, null);
         });
 	}
-};
+}

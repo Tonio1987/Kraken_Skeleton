@@ -25,14 +25,17 @@ module.exports = {
 
         function STEP_CRON_initTasksScheduler(err, tasks) {
             if(!err){
+				console.log("Init CRON TASKS");
                 CRON_scheduler.initTasksScheduler(STEP_finish, tasks);
             }else{
+				console.log("Error - finish here");
                 STEP_finish(err);
             }
         }
 
         function STEP_finish(err, res) {
             if (err) {
+				console.log(res);
                 logger.error(err);
                 logger.error('*** CONTROLLER *** ->  Process Load CRON Tasks ... [ FAILED ]');
             }
