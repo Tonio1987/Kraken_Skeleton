@@ -90,21 +90,19 @@ module.exports = {
     },
     reloadTasksScheduler: function (callback, tasks) {
         for(let i=0; i<tasks.length; i++) {
-            if (tasks.hasOwnProperty(i)) {
-                let cron_expression = tasks[i].CTK_CRON_EXPR;
-                let active = tasks[i].CTK_ACTIVE;
-                let fctName = '';
-                if(active === 1){
-                    fctName = 'start_'+tasks[i].CTK_NAME;
-                    Handler[fctName](cron_expression);
-                }
+			let cron_expression = tasks[i].CTK_CRON_EXPR;
+			let active = tasks[i].CTK_ACTIVE;
+			let fctName = '';
+			if(active === 1){
+				fctName = 'start_'+tasks[i].CTK_NAME;
+				Handler[fctName](cron_expression);
+			}
 
-                if(active === 0){
-                    fctName = 'stop_'+tasks[i].CTK_NAME;
-                    Handler[fctName]();
-                }
-            }
-        }
+			if(active === 0){
+				fctName = 'stop_'+tasks[i].CTK_NAME;
+				Handler[fctName]();
+			}
+		}
         callback(null, tasks);
     }
 };
