@@ -67,6 +67,8 @@ Handler.stop_task_LoadAssetPairs = function(){task_LoadAssetPairs.stop();};
 
 module.exports = {
    initTasksScheduler: function (callback, tasks) {
+	   console.log(tasks);
+	   console.log("length : "+tasks.length);
        for(let i in tasks) {
             if (tasks.hasOwnProperty(i)) {
                 let cron_expression = tasks[i].cron_expression;
