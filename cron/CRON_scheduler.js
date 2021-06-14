@@ -72,18 +72,18 @@ module.exports = {
        for(let i=0; i<tasks.length; i++) {
 			let cron_expression = tasks[i].CTK_CRON_EXPR;
 			let active = tasks[i].ACTIVE;
-			let fctName = 'init_'+tasks[i].NAME.toString().trim();
+			let fctName = 'init_'+tasks[i].NAME;
 			console.log(cron_expression+" "+active+" "+fctName);
 			// INIT DU SCHEDULER
 			Handler[fctName](cron_expression);
 
 			if(active === true){
-				fctName = 'start_'+tasks[i].NAME.toString().trim();
+				fctName = 'start_'+tasks[i].NAME;
 				Handler[fctName](cron_expression);
 			}
 
 			if(active === false){
-				fctName = 'stop_'+tasks[i].NAME.toString().trim();
+				fctName = 'stop_'+tasks[i].NAME;
 				Handler[fctName]();
 			}
             
