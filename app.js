@@ -51,9 +51,9 @@ CTRL_CronScheduler.Init_CronScheduler();
 // START MAIN SCHEDULER
 logger.info('-------> Main Scheduler initialization ...  ');
 
-cron.schedule('*/10 * * * * *', () => {
-    CTRL_CronScheduler.Reload_CronScheduler();
-});
+//cron.schedule('*/10 * * * * *', () => {
+ //   CTRL_CronScheduler.Reload_CronScheduler();
+//});
 
 module.exports = app;
 

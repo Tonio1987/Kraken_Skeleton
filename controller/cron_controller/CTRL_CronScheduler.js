@@ -24,8 +24,9 @@ module.exports = {
         }
 
         function STEP_CRON_initTasksScheduler(err, tasks) {
+			console.log("Err is "+err);
+			console.log("tasks is "+tasks);
             if(!err){
-				console.log(tasks);
                 CRON_scheduler.initTasksScheduler(STEP_finish, tasks);
             }else{
 				console.log("FATAL!!!!!!!!!!!!");
