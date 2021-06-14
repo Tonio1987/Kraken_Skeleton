@@ -26,8 +26,10 @@ module.exports = {
 				});	
 			});
 		}).then(function(data){
+			console.log("we have resolved");
             callback(null, data);
         }).catch(function(err) {
+			console.log("we have rejected");
             callback(err, null);
         });
 	}
