@@ -18,7 +18,6 @@ module.exports = {
         });
 
         function STEP_API_getTime() {
-			console.log("here1");
             API_Time.kraken_Time(STEP_finish);
         }
         function STEP_finish(err, data) {
