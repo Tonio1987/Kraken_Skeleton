@@ -1,6 +1,6 @@
 const moment = require('moment');
 const uuidv1 = require('uuid/v1');
-const {v4: uuidv4 } = require('uuid');
+const {v4: uuidv4} = require('uuid');
 
 var log4js = require('log4js');
 var logger = log4js.getLogger();
