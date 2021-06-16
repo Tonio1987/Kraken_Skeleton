@@ -12,7 +12,7 @@ let Handler={};
 
 // CONTROLLER CALL
 // KRAKEN API
-const CTRL_AssetPairs = require('../controller/api/kraken/CTRL_Time');
+const CTRL_Time = require('../controller/api/kraken/CTRL_Time');
 
 // INIT TASKS ATTRIBUTES
 // SERVER CHECK TASKS
@@ -54,12 +54,15 @@ Handler.init_task_LoadAssetPairs = function(cron_expression){
     });
 };
 */
+
 // KRAKEN
 Handler.start_task_ServerOk = function(){task_ServerOk.start();};
 Handler.stop_task_ServerOk = function(){task_ServerOk.stop();};
 
 Handler.start_task_KrakenServerOnline = function(){task_KrakenServerOnline.start();};
 Handler.stop_task_KrakenServerOnline = function(){task_KrakenServerOnline.stop();};
+
+
 /*
 Handler.start_task_LoadAssetPairs = function(){task_LoadAssetPairs.start();};
 Handler.stop_task_LoadAssetPairs = function(){task_LoadAssetPairs.stop();};
