@@ -18,7 +18,7 @@ function prepareData(data){
     for (let asset in data) {
         let lastTwo = asset.substr(asset.length - 2);
         if(lastTwo === ".d"){darkpool = true;}else{darkpool = false;}
-		let id = uuid();
+		let id = uuidv4();
         if (data.hasOwnProperty(asset)) {
 			var ass = [
 				id,
