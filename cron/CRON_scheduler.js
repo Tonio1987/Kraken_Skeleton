@@ -13,7 +13,7 @@ let Handler={};
 // CONTROLLER CALL
 // KRAKEN API
 const CTRL_Time = require('../controller/api/kraken/CTRL_Time');
-const CTRL_Time = require('../controller/api/kraken/CTRL_AssetPairs');
+const CTRL_AssetPairs = require('../controller/api/kraken/CTRL_AssetPairs');
 
 // INIT TASKS ATTRIBUTES
 // SERVER CHECK TASKS
