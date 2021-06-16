@@ -3,8 +3,8 @@ var log4js = require('log4js');
 var logger = log4js.getLogger();
 logger.level = 'debug';
 
-const API_AssetPairs = require('../../api/kraken/API_AssetPairs');
-const DB_AssetPairs = require('../../persistence/kraken/DB_AssetPairs');
+const API_AssetPairs = require('../../../api/kraken/API_AssetPairs');
+const DB_AssetPairs = require('../../../persistence/kraken/DB_AssetPairs');
 const async = require('async');
 const moment = require('moment');
 
