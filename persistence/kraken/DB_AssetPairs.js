@@ -1,5 +1,9 @@
 const moment = require('moment');
-const MongoClient = require('mongodb').MongoClient;
+const uuidv1 = require('uuid/v1');
+
+var log4js = require('log4js');
+var logger = log4js.getLogger();
+logger.level = 'debug';
 
 moment.locale('fr');
 
@@ -13,56 +17,53 @@ function prepareData(data){
     for (let asset in data) {
         let lastTwo = asset.substr(asset.length - 2);
         if(lastTwo === ".d"){darkpool = true;}else{darkpool = false;}
+		let id = uuidv1();
         if (data.hasOwnProperty(asset)) {
-            var ass = {
-                insert_date: date,
-                insert_hour: hour,
-                insert_timestamp: timestamp,
-                darkpool: darkpool,
-                name: asset,
-                altname: data[asset].altname,
-                wsname: data[asset].wsname,
-                aclass_base: data[asset].aclass_base,
-                base: data[asset].base,
-                aclass_quote: data[asset].aclass_quote,
-                quote: data[asset].quote,
-                lot: data[asset].lot,
-                pair_decimals: data[asset].pair_decimals,
-                lot_decimals: data[asset].lot_decimals,
-                lot_multiplier: data[asset].lot_multiplier,
-                leverage_buy: data[asset].leverage_buy,
-                leverage_sell: data[asset].leverage_sell,
-                fees: data[asset].fees,
-                fees_maker: data[asset].fees_maker,
-                fee_volume_currency: data[asset].fee_volume_currency,
-                margin_call: data[asset].margin_call,
-                margin_stop: data[asset].margin_stop
-            };
-            myAssetPairs.push(ass);
-            i++;
-        }
-    }
-    return myAssetPairs;
+			var ass = [
+				id,
+				date, 
+				timestamp,
+				darkpool,
+				asset,
+				data[asset].altname,
+				data[asset].wsname,
+				data[asset].aclass_base,
+				data[asset].base,
+				data[asset].aclass_quote,
+				data[asset].quote,
+				data[asset].lot,
+				data[asset].pair_decimals,
+				data[asset].lot_decimals,
+				data[asset].lot_multiplier,
+				data[asset].fee_volume_currency,
+				data[asset].margin_call,
+				data[asset].margin_stop
+			];
+			myAssetPairs.push(ass);
+			i++;
+		}
+	}
+	return myAssetPairs;
 }
 
 module.exports = {
     dropAssetPairs: function(callback){
         new Promise(function (resolve, reject) {
-            MongoClient.connect(process.env.MONGO_SERVER_URL, {useUnifiedTopology: true}, function(err, db) {
-                if (err){
-                    reject(err);
-                } else{
-                    var dbo = db.db(process.env.MONGO_SERVER_DATABASE);
-                    dbo.collection("AssetPairs").drop(function(err, delOK) {
-                        if (err){
-                            reject(err);
-                        } else{
-                            db.close();
-                            resolve(true);
-                        }
-                    });
-                }
-            });
+			var getConnection = require('../../config/db_mysql_config');
+			getConnection(function (err, con) {
+				if(err) {  
+					reject(err);
+				}
+				var sql = "DELETE FROM TR_ASSET_PAIR_APR";
+				con.query(sql, function (err, res) {
+					if (err) {
+						reject(err);
+					}
+					logger.warn('*** DB *** ->  Number of records in TR_ASSET_PAIR_APR deleted: '+ res.affectedRows);
+					con.release();
+					resolve(res);
+				});
+			});
         }).then(function(res){
             callback(res);
         }).catch(function(err) {
@@ -73,21 +74,14 @@ module.exports = {
         var myAssetPairs = prepareData(data);
         new Promise(function (resolve, reject) {
             if(myAssetPairs.length > 0){
-                MongoClient.connect(process.env.MONGO_SERVER_URL, {useUnifiedTopology: true}, function(err, db ) {
-                    if (err){
-                        reject(err);
-                    } else{
-                        var dbo = db.db(process.env.MONGO_SERVER_DATABASE);
-                        dbo.collection("AssetPairs").insertMany(myAssetPairs, function(err, res) {
-                            if (err){
-                                reject(err);
-                            } else{
-                                db.close();
-                                resolve(true);
-                            }
-                        });
-                    }
-                });
+                var sql = "INSERT INTO TR_ASSET_PAIR_APR (APR_ID, APR_INSERT_DATE, APR_INSERT_TSTP, APR_DARKPOOL, APR_NAME, APR_ALTNAM%E, APR_WSNAME, APR_ACLASS_BASE, APR_BASE, APR_ACLASS_QUOTE, APR_QUOTE, APR_LOT, APR_PAIR_DECIMALS, APR_LOT_DECIMALS, APR_LOT_MULTIPLIER, APR_FEE_VOLUME_CURRENCY, APR_MARGIN_CALL, APR_MARGIN_STOP) VALUES ?";
+				con.query(sql, [myAssetPairs], function (err, result) {
+					if (err) {
+						reject(err);
+					}
+					logger.info('*** DB *** ->  Number of records in TR_ASSET_PAIR_APR inserted: '+ result.affectedRows);
+					resolve(true);
+				});
             }else{
                 resolve(true);
             }
@@ -99,20 +93,7 @@ module.exports = {
     },
     getAllPairs: function (callback) {
         new Promise(function (resolve, reject) {
-            MongoClient.connect(process.env.MONGO_SERVER_URL, {useUnifiedTopology: true}, function(err, db) {
-                if (err){
-                    reject(err);
-                } else{
-                    var dbo = db.db(process.env.MONGO_SERVER_DATABASE);
-                    dbo.collection("AssetPairs").find({darkpool: false}).toArray(function(err, result) {
-                        if (err){
-                            reject(err);
-                        }
-                        db.close();
-                        resolve(result);
-                    });
-                }
-            });
+            
         }).then(function(data){
             callback(null, data);
         }).catch(function(err) {
@@ -121,20 +102,7 @@ module.exports = {
     },
     getEurPair: function (callback, currency, param_fw1, param_fw2) {
         new Promise(function (resolve, reject) {
-            MongoClient.connect(process.env.MONGO_SERVER_URL, {useUnifiedTopology: true}, function(err, db) {
-                if (err){
-                    reject(err);
-                } else{
-                    var dbo = db.db(process.env.MONGO_SERVER_DATABASE);
-                    dbo.collection("AssetPairs").find({darkpool: false, quote: "ZEUR", base: currency}).toArray(function(err, result) {
-                        if (err){
-                            reject(err);
-                        }
-                        db.close();
-                        resolve(result);
-                    });
-                }
-            });
+            
         }).then(function(data){
             callback(null, data, currency, param_fw1, param_fw2);
         }).catch(function(err) {
