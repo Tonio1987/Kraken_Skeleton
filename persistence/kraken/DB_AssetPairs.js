@@ -1,6 +1,6 @@
 const moment = require('moment');
 const uuidv1 = require('uuid/v1');
-import { v4 as uuidv4 } from 'uuid';
+const { uuid } = require('uuidv4');
 
 var log4js = require('log4js');
 var logger = log4js.getLogger();
@@ -18,7 +18,7 @@ function prepareData(data){
     for (let asset in data) {
         let lastTwo = asset.substr(asset.length - 2);
         if(lastTwo === ".d"){darkpool = true;}else{darkpool = false;}
-		let id = uuidv4();
+		let id = uuid();
         if (data.hasOwnProperty(asset)) {
 			var ass = [
 				id,
