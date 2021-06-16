@@ -76,13 +76,19 @@ module.exports = {
         var myAssetPairs = prepareData(data);
         new Promise(function (resolve, reject) {
             if(myAssetPairs.length > 0){
-                var sql = "INSERT INTO TR_ASSET_PAIR_APR (APR_ID, APR_INSERT_DATE, APR_INSERT_TSTP, APR_DARKPOOL, APR_NAME, APR_ALTNAM%E, APR_WSNAME, APR_ACLASS_BASE, APR_BASE, APR_ACLASS_QUOTE, APR_QUOTE, APR_LOT, APR_PAIR_DECIMALS, APR_LOT_DECIMALS, APR_LOT_MULTIPLIER, APR_FEE_VOLUME_CURRENCY, APR_MARGIN_CALL, APR_MARGIN_STOP) VALUES ?";
-				con.query(sql, [myAssetPairs], function (err, result) {
-					if (err) {
+				var getConnection = require('../../config/db_mysql_config');
+				getConnection(function (err, con) {
+					if(err) {  
 						reject(err);
 					}
-					logger.info('*** DB *** ->  Number of records in TR_ASSET_PAIR_APR inserted: '+ result.affectedRows);
-					resolve(true);
+					var sql = "INSERT INTO TR_ASSET_PAIR_APR (APR_ID, APR_INSERT_DATE, APR_INSERT_TSTP, APR_DARKPOOL, APR_NAME, APR_ALTNAM%E, APR_WSNAME, APR_ACLASS_BASE, APR_BASE, APR_ACLASS_QUOTE, APR_QUOTE, APR_LOT, APR_PAIR_DECIMALS, APR_LOT_DECIMALS, APR_LOT_MULTIPLIER, APR_FEE_VOLUME_CURRENCY, APR_MARGIN_CALL, APR_MARGIN_STOP) VALUES ?";
+					con.query(sql, [myAssetPairs], function (err, result) {
+						if (err) {
+							reject(err);
+						}
+						logger.info('*** DB *** ->  Number of records in TR_ASSET_PAIR_APR inserted: '+ result.affectedRows);
+						resolve(true);
+					});
 				});
             }else{
                 resolve(true);
