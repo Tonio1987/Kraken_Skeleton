@@ -6,9 +6,8 @@ var logger = log4js.getLogger();
 logger.level = 'debug';
 
 moment.locale('fr');
-
 function prepareData(data){
-    var date = moment().format('YYYY-MM-DD');
+    var date = moment().format('YYYY-MM-DD HH:mm:ss');
     var timestamp = new Date().getTime();
     var myAssetPairs = [];
     let i = 0;
@@ -85,7 +84,7 @@ module.exports = {
 						if (err) {
 							reject(err);
 						}
-						logger.warn('*** DB *** ->  Number of records in TR_ASSET_PAIR_APR inserted: '+ res);
+						logger.warn('*** DB *** ->  Number of records in TR_ASSET_PAIR_APR inserted: '+ res.affectedRows);
 						resolve(true);
 					});
 				});
