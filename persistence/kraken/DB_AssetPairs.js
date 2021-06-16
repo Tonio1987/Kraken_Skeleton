@@ -8,8 +8,7 @@ logger.level = 'debug';
 moment.locale('fr');
 
 function prepareData(data){
-    var date = moment().format('L');
-    var hour = moment().format('LTS');
+    var date = moment().format('YYYY-MM-DD');
     var timestamp = new Date().getTime();
     var myAssetPairs = [];
     let i = 0;
