@@ -40,11 +40,10 @@ module.exports = {
             if(!err){
 				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+allPairs.length);
                 for(let i=0; i<allPairs.length; i++){
-					logger.info('*** CONTROLLER *** -> pair :'+i+' / '+allPairs.length);
                     if (i+1 == allPairs.length){
-                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, true);
+                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, i, true);
                     }else{
-                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, false);
+                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, i, false);
                     }
                 }
             }else{
