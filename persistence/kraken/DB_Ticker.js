@@ -48,7 +48,7 @@ module.exports = {
 				});
 			});
         }).then(function(res){
-			logger.info('*** CONTROLLER *** -> PAIR :'+i+' / '+allPairs.length+' INSERTED');
+			logger.info('*** CONTROLLER *** -> PAIR :'+i+' / '+ length +' INSERTED');
             callback(null, res, param_fw1);
         }).catch(function(err) {
             callback(err, null);
