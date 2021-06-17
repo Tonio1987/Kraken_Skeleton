@@ -8,7 +8,7 @@ logger.level = 'debug';
 moment.locale('fr');
 
 module.exports = {
-    insertTicker: function (callback, data, pair, insert_date, timestamp, i, param_fw1) {
+    insertTicker: function (callback, data, pair, insert_date, timestamp, i, length, param_fw1) {
         new Promise(function (resolve, reject) {
 			var getConnection = require('../../config/db_mysql_config');
 			getConnection(function (err, con) {
