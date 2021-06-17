@@ -14,6 +14,7 @@ let Handler={};
 // KRAKEN API
 const CTRL_Time = require('../controller/api/kraken/CTRL_Time');
 const CTRL_AssetPairs = require('../controller/api/kraken/CTRL_AssetPairs');
+const CTRL_Ticker = require('../controller/api/kraken/CTRL_Ticker');
 
 // INIT TASKS ATTRIBUTES
 // SERVER CHECK TASKS
@@ -22,7 +23,7 @@ let task_KrakenServerOnline = null;
 
 // LOAD DATA TASKS
 let task_LoadAssetPairs = null;
-
+let task_LoadTicker = null;
 
 
 // NODE SERVER IS ALIVE
@@ -45,7 +46,6 @@ Handler.init_task_KrakenServerOnline = function (cron_expression){
 };
 
 // LOAD ASSET PAIRS
-
 Handler.init_task_LoadAssetPairs = function(cron_expression){
     task_LoadAssetPairs = cron.schedule(cron_expression, () =>  {
         logger.info('*** CRON SCHEDULER *** -> Load Asset Pairs ... [ RUNNING ]');
@@ -55,19 +55,30 @@ Handler.init_task_LoadAssetPairs = function(cron_expression){
     });
 };
 
+// LOAD TICKER
+Handler.init_task_LoadTicker = function(cron_expression){
+    task_LoadTicker = cron.schedule(cron_expression, () =>  {
+        logger.info('*** CRON SCHEDULER *** -> Load Ticker ... [ RUNNING ]');
+        CTRL_Ticker.LoadTicker();
+    }, {
+        scheduled: false
+    });
+};
 
-// KRAKEN
+
+// NODE
 Handler.start_task_ServerOk = function(){task_ServerOk.start();};
 Handler.stop_task_ServerOk = function(){task_ServerOk.stop();};
 
+// KRAKEN
 Handler.start_task_KrakenServerOnline = function(){task_KrakenServerOnline.start();};
 Handler.stop_task_KrakenServerOnline = function(){task_KrakenServerOnline.stop();};
-
-
 
 Handler.start_task_LoadAssetPairs = function(){task_LoadAssetPairs.start();};
 Handler.stop_task_LoadAssetPairs = function(){task_LoadAssetPairs.stop();};
 
+Handler.start_task_LoadTicker = function(){task_LoadTicker.start();};
+Handler.stop_task_LoadTicker = function(){task_LoadTicker.stop();};
 
 module.exports = {
    initTasksScheduler: function (callback, tasks) {

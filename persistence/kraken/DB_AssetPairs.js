@@ -97,9 +97,23 @@ module.exports = {
             callback(err, null);
         });
     },
-    getAllPairs: function (callback) {
+    getAllPairsName: function (callback) {
         new Promise(function (resolve, reject) {
-            
+            var getConnection = require('../../config/db_mysql_config');
+			getConnection(function (err, con) {
+				if(err) {  
+					reject(err);
+				}
+				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR";
+				con.query(sql, function (err, res) {
+					if (err) {
+						reject(err);
+					}
+					logger.warn('*** DB *** ->  Number of records in TR_ASSET_PAIR_APR selected: '+ res.affectedRows);
+					con.release();
+					resolve(res);
+				});
+			});
         }).then(function(data){
             callback(null, data);
         }).catch(function(err) {
