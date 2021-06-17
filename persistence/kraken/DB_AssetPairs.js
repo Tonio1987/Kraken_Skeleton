@@ -104,7 +104,7 @@ module.exports = {
 				if(err) {  
 					reject(err);
 				}
-				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR";
+				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR WHERE APR_ACTIVE = 1";
 				con.query(sql, function (err, res, fields) {
 					if (err) {
 						reject(err);
