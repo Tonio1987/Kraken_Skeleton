@@ -41,9 +41,9 @@ module.exports = {
 				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+allPairs.length);
                 for(let i=0; i<allPairs.length; i++){
                     if (i+1 == allPairs.length){
-                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, i, allPairs.length, true);
+                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, true);
                     }else{
-                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, i, allPairs.length, false);
+                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, false);
                     }
                 }
             }else{

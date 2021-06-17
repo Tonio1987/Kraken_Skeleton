@@ -37,7 +37,8 @@ function prepareData(data){
 				data[asset].lot_multiplier,
 				data[asset].fee_volume_currency,
 				data[asset].margin_call,
-				data[asset].margin_stop
+				data[asset].margin_stop,
+				1
 			];
 			myAssetPairs.push(ass);
 			i++;
@@ -79,7 +80,7 @@ module.exports = {
 					if(err) {  
 						reject(err);
 					}
-					var sql = "INSERT INTO TR_ASSET_PAIR_APR (APR_ID, APR_INSERT_DATE, APR_INSERT_TSTP, APR_DARKPOOL, APR_NAME, APR_ALTNAME, APR_WSNAME, APR_ACLASS_BASE, APR_BASE, APR_ACLASS_QUOTE, APR_QUOTE, APR_LOT, APR_PAIR_DECIMALS, APR_LOT_DECIMALS, APR_LOT_MULTIPLIER, APR_FEE_VOLUME_CURRENCY, APR_MARGIN_CALL, APR_MARGIN_STOP) VALUES ?";
+					var sql = "INSERT INTO TR_ASSET_PAIR_APR (APR_ID, APR_INSERT_DATE, APR_INSERT_TSTP, APR_DARKPOOL, APR_NAME, APR_ALTNAME, APR_WSNAME, APR_ACLASS_BASE, APR_BASE, APR_ACLASS_QUOTE, APR_QUOTE, APR_LOT, APR_PAIR_DECIMALS, APR_LOT_DECIMALS, APR_LOT_MULTIPLIER, APR_FEE_VOLUME_CURRENCY, APR_MARGIN_CALL, APR_MARGIN_STOP, APR_ACTIVE) VALUES ?";
 					con.query(sql, [myAssetPairs], function (err, res) {
 						if (err) {
 							reject(err);
@@ -130,3 +131,10 @@ module.exports = {
     }
 };
 
+
+/*
+Query to disable useless pairs
+UPDATE kraken_robot.TR_ASSET_PAIR_APR SET APR_ACTIVE = 0
+WHERE APR_QUOTE IN('ZAUD', 'ZGBP', 'ZJPY', 'ZCAD', 'CHF', 'DOT', 'DAI', 'USDT', 'USDC', 'ZUSD');
+
+*/
