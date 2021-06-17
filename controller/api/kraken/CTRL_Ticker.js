@@ -38,6 +38,7 @@ module.exports = {
         }
         function STEP_API_loadTicker(err, allPairs) {
             if(!err){
+				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+allPairs.length);
                 for(let i=0; i<allPairs.length; i++){
                     if (i+1 == allPairs.length){
                         API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, true);
