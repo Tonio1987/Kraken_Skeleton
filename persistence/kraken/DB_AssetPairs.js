@@ -105,11 +105,10 @@ module.exports = {
 					reject(err);
 				}
 				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR";
-				con.query(sql, function (err, res) {
+				con.query(sql, function (err, res, fields) {
 					if (err) {
 						reject(err);
 					}
-					logger.warn('*** DB *** ->  Number of records in TR_ASSET_PAIR_APR selected: '+ res.affectedRows);
 					con.release();
 					resolve(res);
 				});
