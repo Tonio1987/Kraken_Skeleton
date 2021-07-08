@@ -43,7 +43,7 @@ module.exports = {
 			if(!err){
 				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+data.length);
 				for(let i=0; i<data.length; i++){
-					if (i+1 == allPairs.length){
+					if (i+1 == data.length){
 						DB_AssetPairs.getEurPairName(STEP_API_loadTicker, data[i].BAL_CURRENCY, true);
                     }else{
                         DB_AssetPairs.getEurPairName(STEP_API_loadTicker, data[i].BAL_CURRENCY, false);
