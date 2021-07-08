@@ -7,35 +7,37 @@ logger.level = 'debug';
 
 moment.locale('fr');
 
+function prepareData(insert_date, timestamp, data){
+	let balance = [];
+	for(i in data){
+		// Si le nombre d'unités data[i] de la currency i est > 0
+		if(data[i] > 0){
+			let id = uuidv4();
+			let balanceAsset = [
+				id,
+				insert_date,
+				timestamp, 
+				i, 
+				data[i]
+			];
+			balance.add(balanceAsset);
+		}
+	}
+}
+
 module.exports = {
     insertBalance: function (callback, insert_date, timestamp, data) {
+		var myBalance = prepareData(insert_date, timestamp, data);
         new Promise(function (resolve, reject) {
 			var getConnection = require('../../config/db_mysql_config');
 			getConnection(function (err, con) {
 				if(err) {  
 					reject(err);
 				}
-				let balance = [];
-				
-				for(i in data){
-					// Si le nombre d'unités > 0
-					if(data[i] > 0){
-						let id = uuidv4();
-						let balanceAsset = [
-							id,
-							insert_date,
-							timestamp, 
-							i, 
-							data[i]
-						];
-						balance.add(balanceAsset);
-					}
-					
-				}
 				
 				var sql = "INSERT INTO T_BALANCE_BAL (BAL_ID, BAL_INSERT_DATE, BAL_INSERT_TSTP, BAL_CURRENCY, BAL_UNITS) VALUES ?";
 				
-				con.query(sql, [balance], function (err, res) {
+				con.query(sql, [myBalance], function (err, res) {
 					if (err) {
 						reject(err);
 					}
