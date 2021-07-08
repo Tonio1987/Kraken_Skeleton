@@ -32,7 +32,7 @@ module.exports = {
         }
         function STEP_DB_insertBalance(err, data) {
             if(!err){
-				DB_Balance.insertBalance(STEP_finish, data);
+				DB_Balance.insertBalance(STEP_finish, insert_date, timestamp, data);
             }else{
                 STEP_finish(err);
             }
