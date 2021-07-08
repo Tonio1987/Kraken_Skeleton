@@ -8,11 +8,8 @@ logger.level = 'debug';
 moment.locale('fr');
 
 function prepareData(insert_date, timestamp, data){
-	let balance = [];
-	console.log(data);
+	let myBalance = [];
 	for(let i in data){
-		console.log(i);
-		console.log(data[i]);
 		// Si le nombre d'unités data[i] de la currency i est > 0
 		if(data[i] > 0){
 			let id = uuidv4();
@@ -23,9 +20,10 @@ function prepareData(insert_date, timestamp, data){
 				i, 
 				data[i]
 			];
-			balance.push(balanceAsset);
+			myBalance.push(balanceAsset);
 		}
 	}
+	return myBalance;
 }
 
 module.exports = {
