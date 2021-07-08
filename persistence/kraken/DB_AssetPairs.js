@@ -127,6 +127,9 @@ module.exports = {
 				if(err) {  
 					reject(err);
 				}
+				if(currency.slice(-2) == '.S'){
+					currency = currency.slice(currency.length, -2);
+				}
 				
 				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR WHERE APR_BASE = '"+currency+"' AND APR_QUOTE = 'ZEUR'";
 				con.query(sql, function (err, res, fields) {
