@@ -14,7 +14,9 @@ let Handler={};
 // KRAKEN API
 const CTRL_Time = require('../controller/api/kraken/CTRL_Time');
 const CTRL_AssetPairs = require('../controller/api/kraken/CTRL_AssetPairs');
+const CTRL_Balance = require('../controller/api/kraken/CTRL_Balance');
 const CTRL_Ticker = require('../controller/api/kraken/CTRL_Ticker');
+//const CTRL_OHLC = require('../controller/api/kraken/CTRL_OHLC');
 
 // INIT TASKS ATTRIBUTES
 // SERVER CHECK TASKS
@@ -24,7 +26,8 @@ let task_KrakenServerOnline = null;
 // LOAD DATA TASKS
 let task_LoadAssetPairs = null;
 let task_LoadTicker = null;
-
+let task_LoadBalance = null;
+//let task_LoadOHLC = null;
 
 // NODE SERVER IS ALIVE
 Handler.init_task_ServerOk = function (cron_expression){
@@ -55,6 +58,18 @@ Handler.init_task_LoadAssetPairs = function(cron_expression){
     });
 };
 
+
+// LOAD BALANCE
+Handler.init_task_LoadBalance = function(cron_expression){
+    task_LoadBalance = cron.schedule(cron_expression, () =>  {
+        logger.info('*** CRON SCHEDULER *** -> Load Balance ... [ RUNNING ]');
+        CTRL_Balance.LoadTicker();
+    }, {
+        scheduled: false
+    });
+};
+
+
 // LOAD TICKER
 Handler.init_task_LoadTicker = function(cron_expression){
     task_LoadTicker = cron.schedule(cron_expression, () =>  {
@@ -64,6 +79,18 @@ Handler.init_task_LoadTicker = function(cron_expression){
         scheduled: false
     });
 };
+
+/*
+// LOAD OHLC
+Handler.init_task_LoadOHLC = function(cron_expression){
+    task_LoadOHLC = cron.schedule(cron_expression, () =>  {
+        logger.info('*** CRON SCHEDULER *** -> Load OHLC ... [ RUNNING ]');
+        CTRL_OHLC.LoadTicker();
+    }, {
+        scheduled: false
+    });
+};
+*/
 
 
 // NODE
@@ -76,6 +103,9 @@ Handler.stop_task_KrakenServerOnline = function(){task_KrakenServerOnline.stop()
 
 Handler.start_task_LoadAssetPairs = function(){task_LoadAssetPairs.start();};
 Handler.stop_task_LoadAssetPairs = function(){task_LoadAssetPairs.stop();};
+
+Handler.start_task_LoadBalance = function(){task_LoadBalance.start();};
+Handler.stop_task_LoadBalance = function(){task_LoadBalance.stop();};
 
 Handler.start_task_LoadTicker = function(){task_LoadTicker.start();};
 Handler.stop_task_LoadTicker = function(){task_LoadTicker.stop();};
