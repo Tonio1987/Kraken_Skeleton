@@ -22,7 +22,7 @@ module.exports = {
 
 
     LoadTicker: function () {
-        let insert_date = moment().format('YYYY-MM-DD');
+        let insert_date = moment().format('YYYY-MM-DD HH:mm:ss');
         let timestamp = new Date().getTime();
         async.waterfall([
             STEP_DB_getAllPairsName,
