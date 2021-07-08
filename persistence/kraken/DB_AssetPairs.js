@@ -127,7 +127,8 @@ module.exports = {
 				if(err) {  
 					reject(err);
 				}
-				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR WHERE APR_BASE = "+currency+" AND APR_QUOTE = 'ZEUR'";
+				
+				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR WHERE APR_BASE = '"+currency+"' AND APR_QUOTE = 'ZEUR'";
 				con.query(sql, function (err, res, fields) {
 					if (err) {
 						reject(err);
