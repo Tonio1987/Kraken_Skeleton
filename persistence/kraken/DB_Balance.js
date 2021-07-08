@@ -15,15 +15,25 @@ module.exports = {
 				if(err) {  
 					reject(err);
 				}
-				let id = uuidv4();
-				let balance = [[
-					id,
-					insert_date,
-					timestamp, 
-					
-				]];
+				let balance = [];
 				
-				var sql = "INSERT INTO T_BALANCE_BAL (BAL_ID, BAL_INSERT_DATE, BAL_INSERT_TSTP) VALUES ?";
+				for(i in data){
+					// Si le nombre d'unités > 0
+					if(data[i] > 0){
+						let id = uuidv4();
+						let balanceAsset = [
+							id,
+							insert_date,
+							timestamp, 
+							i, 
+							data[i]
+						];
+						balance.add(balanceAsset);
+					}
+					
+				}
+				
+				var sql = "INSERT INTO T_BALANCE_BAL (BAL_ID, BAL_INSERT_DATE, BAL_INSERT_TSTP, BAL_CURRENCY, BAL_UNITS) VALUES ?";
 				
 				con.query(sql, [balance], function (err, res) {
 					if (err) {
