@@ -47,7 +47,7 @@ module.exports = {
 				});
 			});
         }).then(function(res){
-            callback(null, res, param_fw1);
+            callback(null, res);
         }).catch(function(err) {
             callback(err, null);
         });
@@ -56,7 +56,7 @@ module.exports = {
         new Promise(function (resolve, reject) {
            
         }).then(function(data){
-            callback(null, data, pair, param_fw1,  param_fw2, param_fw3);
+            callback(null, data);
         }).catch(function(err) {
             callback(err, null);
         });
