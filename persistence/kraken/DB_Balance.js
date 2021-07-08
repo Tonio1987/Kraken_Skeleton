@@ -52,7 +52,7 @@ module.exports = {
             callback(err, null);
         });
     },
-    getLastBalanceInvestedCurrency: function (callback) {
+    getLastInvestedAsset: function (callback) {
         new Promise(function (resolve, reject) {
            var getConnection = require('../../config/db_mysql_config');
 			getConnection(function (err, con) {

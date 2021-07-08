@@ -120,7 +120,7 @@ module.exports = {
             callback(err, null);
         });
     },
-    getEurPairName: function (callback, currency) {
+    getEurPairName: function (callback, currency, param_fw1) {
         new Promise(function (resolve, reject) {
             var getConnection = require('../../config/db_mysql_config');
 			getConnection(function (err, con) {
@@ -137,7 +137,7 @@ module.exports = {
 				});
 			});
         }).then(function(data){
-            callback(null, data, currency, param_fw1, param_fw2);
+            callback(null, data, param_fw1);
         }).catch(function(err) {
             callback(err, null);
         });

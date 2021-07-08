@@ -4,6 +4,7 @@ var logger = log4js.getLogger();
 logger.level = 'debug';
 
 const DB_AssetPairs = require('../../../persistence/kraken/DB_AssetPairs');
+const DB_Balance = require('../../../persistence/kraken/DB_Balance');
 const DB_Ticker = require('../../../persistence/kraken/DB_Ticker');
 const API_Ticker = require('../../../api/kraken/API_Ticker');
 const async = require('async');
@@ -25,7 +26,8 @@ module.exports = {
         let insert_date = moment().format('YYYY-MM-DD HH:mm:ss');
         let timestamp = new Date().getTime();
         async.waterfall([
-            STEP_DB_getAllPairsName,
+			STEP_DB_getLastInvestedAsset,
+            STEP_DB_getEurPairName,
             STEP_API_loadTicker,
             STEP_DB_insertTicker,
             STEP_finish
@@ -33,19 +35,27 @@ module.exports = {
             // Nothing to do here
         });
 
-        function STEP_DB_getAllPairsName() {
-            DB_AssetPairs.getAllPairsName(STEP_API_loadTicker);
+		function STEP_DB_getLastInvestedAsset() {
+            DB_Balance.getLastInvestedAsset(STEP_DB_getEurPairName);
         }
-        function STEP_API_loadTicker(err, allPairs) {
-            if(!err){
-				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+allPairs.length);
-                for(let i=0; i<allPairs.length; i++){
-                    if (i+1 == allPairs.length){
-                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, true);
+		
+        function STEP_DB_getEurPairName(err, data) {
+			if(!err){
+				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+data.length);
+				for(let i=0; i<data.length; i++){
+					if (i+1 == allPairs.length){
+						DB_AssetPairs.getEurPairName(STEP_API_loadTicker, data[i].BAL_CURRENCY, true);
                     }else{
-                        API_Ticker.kraken_Ticker(STEP_DB_insertTicker, allPairs[i].APR_NAME, false);
+                        DB_AssetPairs.getEurPairName(STEP_API_loadTicker, data[i].BAL_CURRENCY, false);
                     }
-                }
+				}
+			}else{
+                STEP_finish(err);
+            }
+        }
+        function STEP_API_loadTicker(err, pair, iter) {
+            if(!err){
+				API_Ticker.kraken_Ticker(STEP_DB_insertTicker, pair[0].APR_NAME, iter);
             }else{
                 STEP_finish(err);
             }
