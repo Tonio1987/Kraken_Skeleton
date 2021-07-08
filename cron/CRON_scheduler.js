@@ -64,6 +64,7 @@ Handler.init_task_LoadBalance = function(cron_expression){
     task_LoadBalance = cron.schedule(cron_expression, () =>  {
         logger.info('*** CRON SCHEDULER *** -> Load Balance ... [ RUNNING ]');
         CTRL_Balance.LoadBalance();
+		console.log("EXEC NOW");
     }, {
         scheduled: false
     });

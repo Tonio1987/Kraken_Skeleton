@@ -120,9 +120,22 @@ module.exports = {
             callback(err, null);
         });
     },
-    getEurPair: function (callback, currency, param_fw1, param_fw2) {
+    getEurPairName: function (callback, currency) {
         new Promise(function (resolve, reject) {
-            
+            var getConnection = require('../../config/db_mysql_config');
+			getConnection(function (err, con) {
+				if(err) {  
+					reject(err);
+				}
+				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR WHERE APR_BASE = "+currency+" AND APR_QUOTE = 'ZEUR'";
+				con.query(sql, function (err, res, fields) {
+					if (err) {
+						reject(err);
+					}
+					con.release();
+					resolve(res);
+				});
+			});
         }).then(function(data){
             callback(null, data, currency, param_fw1, param_fw2);
         }).catch(function(err) {

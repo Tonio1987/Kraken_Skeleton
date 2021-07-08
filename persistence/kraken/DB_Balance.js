@@ -52,9 +52,22 @@ module.exports = {
             callback(err, null);
         });
     },
-    getLastBalance: function (callback) {
+    getLastBalanceInvestedCurrency: function (callback) {
         new Promise(function (resolve, reject) {
-           
+           var getConnection = require('../../config/db_mysql_config');
+			getConnection(function (err, con) {
+				if(err) {  
+					reject(err);
+				}
+				var sql = "SELECT BAL_CURRENCY FROM T_BALANCE_BAL WHERE BAL_INSERT_TSTP = (SELECT MAX(BAL_INSERT_TSTP) FROM T_BALANCE_BAL)";
+				con.query(sql, function (err, res, fields) {
+					if (err) {
+						reject(err);
+					}
+					con.release();
+					resolve(res);
+				});
+			});
         }).then(function(data){
             callback(null, data);
         }).catch(function(err) {
