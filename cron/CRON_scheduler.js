@@ -63,7 +63,7 @@ Handler.init_task_LoadAssetPairs = function(cron_expression){
 Handler.init_task_LoadBalance = function(cron_expression){
     task_LoadBalance = cron.schedule(cron_expression, () =>  {
         logger.info('*** CRON SCHEDULER *** -> Load Balance ... [ RUNNING ]');
-        CTRL_Balance.LoadTicker();
+        CTRL_Balance.LoadBalance();
     }, {
         scheduled: false
     });
