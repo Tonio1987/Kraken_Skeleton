@@ -9,7 +9,7 @@ moment.locale('fr');
 
 function prepareData(insert_date, timestamp, data){
 	let balance = [];
-	for(i in data){
+	for(let i in data){
 		// Si le nombre d'unités data[i] de la currency i est > 0
 		if(data[i] > 0){
 			let id = uuidv4();

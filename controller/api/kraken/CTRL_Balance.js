@@ -37,14 +37,12 @@ module.exports = {
                 STEP_finish(err);
             }
         }
-        function STEP_finish(err, ) {
+        function STEP_finish(err, data) {
             if(err){
                 logger.error(err);
                 logger.error('*** CONTROLLER *** ->  Process Load Balance ... [ FAILED ]');
             }
-            if(iter){
-                logger.info('*** CONTROLLER *** ->  Process Load Balance ... [ DONE ]');
-            }
+            logger.info('*** CONTROLLER *** ->  Process Load Balance ... [ DONE ]');
         }
     }
 };
