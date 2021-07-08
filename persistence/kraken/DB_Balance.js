@@ -20,7 +20,7 @@ function prepareData(insert_date, timestamp, data){
 				i, 
 				data[i]
 			];
-			balance.add(balanceAsset);
+			balance.push(balanceAsset);
 		}
 	}
 }
