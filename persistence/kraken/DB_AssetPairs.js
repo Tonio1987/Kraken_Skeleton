@@ -127,11 +127,18 @@ module.exports = {
 				if(err) {  
 					reject(err);
 				}
+				
+				// Gestion du stacking de cryptos
 				if(currency.slice(-2) == '.S'){
 					currency = currency.slice(0, -2);
 				}
-				console.log(currency);
-				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR WHERE APR_BASE = '"+currency+"' AND APR_QUOTE = 'ZEUR'";
+				
+				// Gestion du pre-stacking ETH2
+				if(currency === 'ETH2'){
+					currency = 'XETH';
+				}
+				
+				var sql = "SELECT APR_NAME FROM TR_ASSET_PAIR_APR WHERE APR_BASE = '"+currency+"' AND APR_QUOTE IN('ZEUR', 'EUR')";
 				con.query(sql, function (err, res, fields) {
 					if (err) {
 						reject(err);
