@@ -46,7 +46,7 @@ module.exports = {
 				let currencies = [];
 				for(let i=0; i<data.length; i++){
 					// Gestion du stacking de cryptos hors ETH
-					if(data[i].BAL_CURRENCY.slice(-2) == '.S' && data[i].BAL_CURRENCY.slice(-2) != 'ETH2.S'){
+					if(data[i].BAL_CURRENCY.slice(-2) == '.S' && data[i].BAL_CURRENCY != 'ETH2.S'){
 						currency = data[i].BAL_CURRENCY.slice(0, -2);
 						currencies.push(currency);
 					} // Gestion du pre-stacking ETH
