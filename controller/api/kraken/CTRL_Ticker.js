@@ -41,12 +41,34 @@ module.exports = {
 		
         function STEP_DB_getEurPairName(err, data) {
 			if(!err){
-				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+data.length);
+				let ethHandled = false;
+				let currency;
+				let currencies = [];
 				for(let i=0; i<data.length; i++){
-					if (i+1 == data.length){
-						DB_AssetPairs.getEurPairName(STEP_API_loadTicker, data[i].BAL_CURRENCY, true);
+					// Gestion du stacking de cryptos
+					if(data[i].BAL_CURRENCY.slice(-2) == '.S'){
+						currency = data[i].BAL_CURRENCY.slice(0, -2);
+						// Gestion du pre-stacking ETH
+						if(data[i].BAL_CURRENCY === 'XETH' || data[i].BAL_CURRENCY === 'ETH2' || data[i].BAL_CURRENCY === 'ETH2.S'){
+							currency = 'XETH';
+							if(ethHandled === false){
+								currencies.push(currency);
+							}
+							ethHandled = true;
+						}else{
+							currencies.push(currency);
+						}
+					}else{
+						currencies.push(currency);
+					}
+				}
+				console.log(currencies);
+				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+currencies.length);
+				for(let i=0; i<currencies.length; i++){
+					if (i+1 == currencies.length){
+						DB_AssetPairs.getEurPairName(STEP_API_loadTicker, currencies[i], true);
                     }else{
-                        DB_AssetPairs.getEurPairName(STEP_API_loadTicker, data[i].BAL_CURRENCY, false);
+                        DB_AssetPairs.getEurPairName(STEP_API_loadTicker, currencies[i], false);
                     }
 				}
 			}else{
