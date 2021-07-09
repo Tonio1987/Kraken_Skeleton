@@ -48,28 +48,32 @@ module.exports = {
 					// Gestion du stacking de cryptos
 					if(data[i].BAL_CURRENCY.slice(-2) == '.S'){
 						currency = data[i].BAL_CURRENCY.slice(0, -2);
-						// Gestion du pre-stacking ETH
-						if(data[i].BAL_CURRENCY === 'XETH' || data[i].BAL_CURRENCY === 'ETH2' || data[i].BAL_CURRENCY === 'ETH2.S'){
-							currency = 'XETH';
-							if(ethHandled === false){
-								currencies.push(currency);
-							}
-							ethHandled = true;
-						}else{
+					} // Gestion du pre-stacking ETH
+					else if(data[i].BAL_CURRENCY === 'XETH' || data[i].BAL_CURRENCY === 'ETH2' || data[i].BAL_CURRENCY === 'ETH2.S'){
+						currency = 'XETH';
+						if(ethHandled === false){
 							currencies.push(currency);
 						}
+						ethHandled = true;	
 					}else{
 						currency = data[i].BAL_CURRENCY;
 						currencies.push(currency);
 					}
 				}
 				console.log(currencies);
+				
+				// Utilisation de l'objet Set pour filtrer les doublons
+				const uniqueSetCurrencies = new Set(currencies);
+				// Transfor,ation du Set en Array
+				const uniqueArrayCurrencies = [...uniqueSetCurrencies];
+				console.log(uniqueArrayCurrencies);
+				
 				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+currencies.length);
-				for(let i=0; i<currencies.length; i++){
-					if (i+1 == currencies.length){
-						DB_AssetPairs.getEurPairName(STEP_API_loadTicker, currencies[i], true);
+				for(let i=0; i<uniqueArrayCurrencies.length; i++){
+					if (i+1 == uniqueArrayCurrencies.length){
+						DB_AssetPairs.getEurPairName(STEP_API_loadTicker, uniqueArrayCurrencies[i], true);
                     }else{
-                        DB_AssetPairs.getEurPairName(STEP_API_loadTicker, currencies[i], false);
+                        DB_AssetPairs.getEurPairName(STEP_API_loadTicker, uniqueArrayCurrencies[i], false);
                     }
 				}
 			}else{
