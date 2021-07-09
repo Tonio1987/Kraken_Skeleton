@@ -48,6 +48,7 @@ module.exports = {
 					// Gestion du stacking de cryptos
 					if(data[i].BAL_CURRENCY.slice(-2) == '.S'){
 						currency = data[i].BAL_CURRENCY.slice(0, -2);
+						currencies.push(currency);
 					} // Gestion du pre-stacking ETH
 					else if(data[i].BAL_CURRENCY === 'XETH' || data[i].BAL_CURRENCY === 'ETH2' || data[i].BAL_CURRENCY === 'ETH2.S'){
 						currency = 'XETH';
