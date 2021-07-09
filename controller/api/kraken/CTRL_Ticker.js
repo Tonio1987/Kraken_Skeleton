@@ -59,6 +59,7 @@ module.exports = {
 							currencies.push(currency);
 						}
 					}else{
+						currency = data[i].BAL_CURRENCY;
 						currencies.push(currency);
 					}
 				}
