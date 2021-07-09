@@ -61,15 +61,13 @@ module.exports = {
 						currencies.push(currency);
 					}
 				}
-				console.log(currencies);
 				
 				// Utilisation de l'objet Set pour filtrer les doublons
 				const uniqueSetCurrencies = new Set(currencies);
 				// Transfor,ation du Set en Array
 				const uniqueArrayCurrencies = [...uniqueSetCurrencies];
-				console.log(uniqueArrayCurrencies);
 				
-				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+currencies.length);
+				logger.info('*** CONTROLLER *** -> Number of pairs for which we ask the price  : '+uniqueArrayCurrencies.length);
 				for(let i=0; i<uniqueArrayCurrencies.length; i++){
 					if (i+1 == uniqueArrayCurrencies.length){
 						DB_AssetPairs.getEurPairName(STEP_API_loadTicker, uniqueArrayCurrencies[i], true);
