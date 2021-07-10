@@ -130,6 +130,7 @@ module.exports = {
             if(iter){
                 logger.info('*** CONTROLLER *** ->  Process Load OHLC 1 DAY ... [ DONE ]');
             }
+			logger.info('*** CONTROLLER *** ->  Process Load OHLC Iter : [ '+iter+' ]');
         }
     }
 };
