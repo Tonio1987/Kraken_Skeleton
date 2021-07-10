@@ -116,7 +116,7 @@ module.exports = {
         }).then(function(res){
             callback(null, res, param_fw1);
         }).catch(function(err) {
-            callback(err, null);
+            callback(err, null, param_fw1);
         });
     },
 	countOHLC: function (callback, interval, param_fw1) {

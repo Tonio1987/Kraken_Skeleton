@@ -66,7 +66,7 @@ module.exports = {
             }else{
 				logger.error("*** CONTROLLER *** Erreur with pair : "+pair);
 				if(tentative < 3){
-					logger.error("*** CONTROLLER *** Tentative #"+tentative+" for pair : "+pair);
+					logger.warn("*** CONTROLLER *** Tentative #"+tentative+" for pair : "+pair);
 					tentative++;
 					API_OHLC.kraken_OHLC_1h(STEP_DB_insertOHLC, pair, count, iter);
 				}else{
