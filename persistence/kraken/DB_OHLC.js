@@ -89,7 +89,6 @@ function prepareData(data, pair, interval, count, insert_date, timestamp){
             ohlcs.push(ohlc);
         }
     }
-	console.log(ohlcs);
     return ohlcs;
 }
 
