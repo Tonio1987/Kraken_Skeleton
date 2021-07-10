@@ -75,6 +75,7 @@ module.exports = {
             if(iter === true){
                 logger.info('*** CONTROLLER *** ->  Process Load OHLC 1 HOUR ... [ DONE ]');
             }
+			logger.info('*** CONTROLLER *** ->  Process Load OHLC Iter : [ '+iter+' ]');
         }
     },
     LoadOHLC_1d: function () {
