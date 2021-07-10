@@ -79,7 +79,7 @@ module.exports = {
                 logger.error(err);
                 logger.error('*** CONTROLLER *** ->  Process Load OHLC 1 HOUR ... [ FAILED ]');
             }
-            if(iter){
+            if(iter === true){
                 logger.info('*** CONTROLLER *** ->  Process Load OHLC 1 HOUR ... [ DONE ]');
             }
         }
