@@ -96,7 +96,7 @@ module.exports = {
     insertOHLC: function (callback, data, pair, interval, count, insert_date, timestamp, param_fw1) {
         var ohlcs = prepareData(data, pair, interval, count, insert_date, timestamp);
         new Promise(function (resolve, reject) {
-            if(myAssetPairs.length > 0){
+            if(ohlcs.length > 0){
 				var getConnection = require('../../config/db_mysql_config');
 				getConnection(function (err, con) {
 					if(err) {  

@@ -46,7 +46,7 @@ module.exports = {
 				if(count > 0){	
 					logger.warn("*** CONTROLLER *** -> First OHLC Loading ... ");
 				}
-				
+				logger.warn("*** CONTROLLER *** -> Number of OHLC to load : "+ allPairs.length);
                 for(let i=0; i<allPairs.length; i++){
                     if (i+1 == allPairs.length){
                         API_OHLC.kraken_OHLC_1h(STEP_DB_insertOHLC, allPairs[i].APR_NAME, count, true);
