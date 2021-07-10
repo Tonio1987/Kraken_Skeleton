@@ -60,7 +60,7 @@ module.exports = {
         }
         function STEP_DB_insertOHLC(err, data, pair, count, iter) {
             if(!err){
-				logger.warn("*** CONTROLLER *** Loading OHLC for pair : "+ allPairs[i].APR_NAME);
+				logger.warn("*** CONTROLLER *** Loading OHLC for pair : "+ pair);
                 DB_OHLC.insertOHLC(STEP_finish, data, pair, "1_HOUR", count, insert_date, timestamp, iter);
             }else{
                 console.log('Erreur with pair : '+pair);
