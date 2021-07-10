@@ -44,9 +44,9 @@ module.exports = {
             if(!err){
                 for(let i=0; i<allPairs.length; i++){
                     if (i+1 == allPairs.length){
-                        API_OHLC.kraken_OHLC_1h(STEP_DB_insertOHLC, allPairs[i].name, count, true);
+                        API_OHLC.kraken_OHLC_1h(STEP_DB_insertOHLC, allPairs[i].APR_NAME, count, true);
                     }else{
-                        API_OHLC.kraken_OHLC_1h(STEP_DB_insertOHLC, allPairs[i].name, count, false);
+                        API_OHLC.kraken_OHLC_1h(STEP_DB_insertOHLC, allPairs[i].APR_NAME, count, false);
                     }
                 }
             }else{
@@ -55,7 +55,7 @@ module.exports = {
         }
         function STEP_DB_insertOHLC(err, data, pair, count, iter) {
             if(!err){
-                DB_OHLC.insertOHLC(STEP_finish, data, pair, "1_HOUR", count, insert_date, insert_hour, timestamp, iter);
+                DB_OHLC.insertOHLC(STEP_finish, data, pair, "1_HOUR", count, insert_date, timestamp, iter);
             }else{
                 console.log('Erreur with pair : '+pair);
                 STEP_finish(err);
@@ -97,9 +97,9 @@ module.exports = {
             if (!err) {
                 for(let i=0; i<allPairs.length; i++){
                     if (i+1 == allPairs.length){
-                        API_OHLC.kraken_OHLC_1d(STEP_DB_insertOHLC, allPairs[i].name, count, true);
+                        API_OHLC.kraken_OHLC_1d(STEP_DB_insertOHLC, allPairs[i].APR_NAME, count, true);
                     }else{
-                        API_OHLC.kraken_OHLC_1d(STEP_DB_insertOHLC, allPairs[i].name, count, false);
+                        API_OHLC.kraken_OHLC_1d(STEP_DB_insertOHLC, allPairs[i].APR_NAME, count, false);
                     }
                 }
             } else {

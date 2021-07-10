@@ -1,6 +1,11 @@
+// LOG SYSTEM
+var log4js = require('log4js');
+var logger = log4js.getLogger();
+logger.level = 'debug';
+
 const moment = require('moment');
 var MongoClient = require('mongodb').MongoClient;
-
+const {v4: uuidv4} = require('uuid');
 moment.locale('fr');
 
 function prepareData(data, pair, interval, count, insert_date, insert_hour, timestamp){
@@ -24,8 +29,11 @@ function prepareData(data, pair, interval, count, insert_date, insert_hour, time
             time_date = moment(time).format('L');
             time_hour = moment(time).format('LTS');
         }
-
+		
+		let id = uuidv4();
+		
         var ohlc = {
+			id,
             insert_date: insert_date,
             insert_timestamp: timestamp,
             pair: pair,
@@ -44,6 +52,7 @@ function prepareData(data, pair, interval, count, insert_date, insert_hour, time
         ohlcs.push(ohlc);
     }else{
         // FIRST LOAD
+		logger.warn("*** CONTROLLER *** -> First OHLC Loading ... ");
         for(let i=0; i<data[pair].length; i++){
             if(interval === "1_HOUR"){
                 time = data[pair][i][0];
@@ -59,7 +68,11 @@ function prepareData(data, pair, interval, count, insert_date, insert_hour, time
                 time_date = moment(time).format('L');
 				time_hour = moment(time).format('LTS');
             }
+			
+			let id = uuidv4();
+			
             var ohlc = {
+				id,
                 insert_date: insert_date,
                 insert_timestamp: timestamp,
                 pair: pair,
@@ -82,46 +95,41 @@ function prepareData(data, pair, interval, count, insert_date, insert_hour, time
 }
 
 module.exports = {
-    insertOHLC: function (callback, data, pair, interval, count, insert_date, insert_hour, timestamp, param_fw1) {
+    insertOHLC: function (callback, data, pair, interval, count, insert_date, timestamp, param_fw1) {
         var ohlcs = prepareData(data, pair, interval, count, insert_date, insert_hour, timestamp);
         new Promise(function (resolve, reject) {
-            
-        }).then(function(res){
-            callback(null, res, param_fw1);
-        }).catch(function(err) {
-            callback(err, null);
-        });
-    },
-    countOHLC_1d: function (callback, interval, param_fw1) {
-        new Promise(function (resolve, reject) {
-            var getConnection = require('../../config/db_mysql_config');
-			getConnection(function (err, con) {
-				if(err) {  
-					reject(err);
-				}
-				var sql = "SELECT COUNT(*) FROM T_OHLC_OHL WHERE OHL_INTERVAL = '1_DAY'";
-				con.query(sql, function (err, res, fields) {
-					if (err) {
+            if(myAssetPairs.length > 0){
+				var getConnection = require('../../config/db_mysql_config');
+				getConnection(function (err, con) {
+					if(err) {  
 						reject(err);
 					}
-					con.release();
-					resolve(res);
+					var sql = "INSERT INTO T_OHLC_OHL_APR (OHL_ID, OHL_INSERT_DATE, OHL_INSERT_TSTP, OHL_PAIR, OHL_INTERVAL, OHL_TIME, OHL_TIME_DATE, OHL_TIME_HOUR, OHL_OPEN, OHL_HIGH, IHL_LOW, OHL_CLOSE, OHL_SWAP, OHL_VOLUME, OHL_COUNT) VALUES ?";
+					con.query(sql, [ohlcs], function (err, res) {
+						if (err) {
+							reject(err);
+						}
+						logger.warn('*** DB *** ->  Number of records in T_OHLC_OHL inserted: '+ res.affectedRows);
+						resolve(true);
+					});
 				});
-			});
+            }else{
+                resolve(true);
+            }
         }).then(function(res){
             callback(null, res, param_fw1);
         }).catch(function(err) {
             callback(err, null);
         });
     },
-	countOHLC_1h: function (callback, interval, param_fw1) {
+	countOHLC: function (callback, interval, param_fw1) {
         new Promise(function (resolve, reject) {
             var getConnection = require('../../config/db_mysql_config');
 			getConnection(function (err, con) {
 				if(err) {  
 					reject(err);
 				}
-				var sql = "SELECT COUNT(*) FROM T_OHLC_OHL WHERE OHL_INTERVAL = '1_HOUR'";
+				var sql = "SELECT COUNT(*) FROM T_OHLC_OHL WHERE OHL_INTERVAL = '"+interval+"";
 				con.query(sql, function (err, res, fields) {
 					if (err) {
 						reject(err);

@@ -16,7 +16,7 @@ const CTRL_Time = require('../controller/api/kraken/CTRL_Time');
 const CTRL_AssetPairs = require('../controller/api/kraken/CTRL_AssetPairs');
 const CTRL_Balance = require('../controller/api/kraken/CTRL_Balance');
 const CTRL_Ticker = require('../controller/api/kraken/CTRL_Ticker');
-//const CTRL_OHLC = require('../controller/api/kraken/CTRL_OHLC');
+const CTRL_OHLC = require('../controller/api/kraken/CTRL_OHLC');
 
 // INIT TASKS ATTRIBUTES
 // SERVER CHECK TASKS
@@ -27,7 +27,8 @@ let task_KrakenServerOnline = null;
 let task_LoadAssetPairs = null;
 let task_LoadTicker = null;
 let task_LoadBalance = null;
-//let task_LoadOHLC = null;
+let task_LoadOHLC1H = null;
+let task_LoadOHLC1D = null;
 
 // NODE SERVER IS ALIVE
 Handler.init_task_ServerOk = function (cron_expression){
@@ -80,17 +81,26 @@ Handler.init_task_LoadTicker = function(cron_expression){
     });
 };
 
-/*
+
 // LOAD OHLC
-Handler.init_task_LoadOHLC = function(cron_expression){
-    task_LoadOHLC = cron.schedule(cron_expression, () =>  {
-        logger.info('*** CRON SCHEDULER *** -> Load OHLC ... [ RUNNING ]');
-        CTRL_OHLC.LoadTicker();
+Handler.init_task_LoadOHLC1H = function(cron_expression){
+    task_LoadOHLC1H = cron.schedule(cron_expression, () =>  {
+        logger.info('*** CRON SCHEDULER *** -> Load OHLC 1 HOUR ... [ RUNNING ]');
+        CTRL_OHLC.LoadOHLC_1h();
     }, {
         scheduled: false
     });
 };
-*/
+
+// LOAD OHLC
+Handler.init_task_LoadOHLC1D = function(cron_expression){
+    task_LoadOHLC1D = cron.schedule(cron_expression, () =>  {
+        logger.info('*** CRON SCHEDULER *** -> Load OHLC 1 DAY ... [ RUNNING ]');
+        CTRL_OHLC.LoadOHLC_1d();
+    }, {
+        scheduled: false
+    });
+};
 
 
 // NODE
@@ -109,6 +119,14 @@ Handler.stop_task_LoadBalance = function(){task_LoadBalance.stop();};
 
 Handler.start_task_LoadTicker = function(){task_LoadTicker.start();};
 Handler.stop_task_LoadTicker = function(){task_LoadTicker.stop();};
+
+Handler.start_task_LoadOHLC1H = function(){task_LoadOHLC1H.start();};
+Handler.stop_task_LoadOHLC1H = function(){task_LoadOHLC1H.stop();};
+
+Handler.start_task_LoadOHLC1D = function(){task_LoadOHLC1D.start();};
+Handler.stop_task_LoadOHLC1D = function(){task_LoadOHLC1D.stop();};
+
+
 
 module.exports = {
    initTasksScheduler: function (callback, tasks) {
