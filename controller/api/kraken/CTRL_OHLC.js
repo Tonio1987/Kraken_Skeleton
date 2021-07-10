@@ -44,6 +44,7 @@ module.exports = {
             if(!err){
 				// FIRST LOAD
 				console.log(count);
+				console.log(count[0]);
 				if(count === 0){
 					logger.warn("*** CONTROLLER *** -> First OHLC Loading ... ");
 				}
