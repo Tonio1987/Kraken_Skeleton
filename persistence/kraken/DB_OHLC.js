@@ -128,7 +128,7 @@ module.exports = {
 				if(err) {  
 					reject(err);
 				}
-				var sql = "SELECT COUNT(*) FROM T_OHLC_OHL WHERE OHL_INTERVAL = '"+interval+"";
+				var sql = "SELECT COUNT(*) FROM T_OHLC_OHL WHERE OHL_INTERVAL = '"+interval+"'";
 				con.query(sql, function (err, res, fields) {
 					if (err) {
 						reject(err);
