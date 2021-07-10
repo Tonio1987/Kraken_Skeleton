@@ -102,7 +102,7 @@ module.exports = {
 					if(err) {  
 						reject(err);
 					}
-					var sql = "INSERT INTO T_OHLC_OHL_APR (OHL_ID, OHL_INSERT_DATE, OHL_INSERT_TSTP, OHL_PAIR, OHL_INTERVAL, OHL_TIME, OHL_TIME_DATE, OHL_TIME_HOUR, OHL_OPEN, OHL_HIGH, IHL_LOW, OHL_CLOSE, OHL_SWAP, OHL_VOLUME, OHL_COUNT) VALUES ?";
+					var sql = "INSERT INTO T_OHLC_OHL (OHL_ID, OHL_INSERT_DATE, OHL_INSERT_TSTP, OHL_PAIR, OHL_INTERVAL, OHL_TIME, OHL_TIME_DATE, OHL_TIME_HOUR, OHL_OPEN, OHL_HIGH, IHL_LOW, OHL_CLOSE, OHL_SWAP, OHL_VOLUME, OHL_COUNT) VALUES ?";
 					con.query(sql, [ohlcs], function (err, res) {
 						if (err) {
 							reject(err);
