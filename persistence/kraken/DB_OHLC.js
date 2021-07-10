@@ -4,7 +4,6 @@ var logger = log4js.getLogger();
 logger.level = 'debug';
 
 const moment = require('moment');
-var MongoClient = require('mongodb').MongoClient;
 const {v4: uuidv4} = require('uuid');
 moment.locale('fr');
 
