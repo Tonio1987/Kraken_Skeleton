@@ -107,7 +107,6 @@ module.exports = {
 						if (err) {
 							reject(err);
 						}
-						logger.warn('*** DB *** ->  Number of records in T_OHLC_OHL inserted: '+ res.affectedRows);
 						resolve(true);
 					});
 				});
