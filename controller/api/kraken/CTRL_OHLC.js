@@ -43,9 +43,10 @@ module.exports = {
         function STEP_API_loadOHLC(err, count, allPairs) {
             if(!err){
 				// FIRST LOAD
-				if(count > 0){	
+				if(count === 0){
 					logger.warn("*** CONTROLLER *** -> First OHLC Loading ... ");
 				}
+				
 				logger.warn("*** CONTROLLER *** -> Number of OHLC to load : "+ allPairs.length);
                 for(let i=0; i<allPairs.length; i++){
                     if (i+1 == allPairs.length){
