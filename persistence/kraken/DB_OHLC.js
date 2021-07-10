@@ -7,7 +7,7 @@ const moment = require('moment');
 const {v4: uuidv4} = require('uuid');
 moment.locale('fr');
 
-function prepareData(data, pair, interval, count, insert_date, insert_hour, timestamp){
+function prepareData(data, pair, interval, count, insert_date, timestamp){
     let ohlcs = [];
     let time = 0;
     let time_date = 0;
@@ -51,7 +51,6 @@ function prepareData(data, pair, interval, count, insert_date, insert_hour, time
         ohlcs.push(ohlc);
     }else{
         // FIRST LOAD
-		logger.warn("*** CONTROLLER *** -> First OHLC Loading ... ");
         for(let i=0; i<data[pair].length; i++){
             if(interval === "1_HOUR"){
                 time = data[pair][i][0];
@@ -95,7 +94,7 @@ function prepareData(data, pair, interval, count, insert_date, insert_hour, time
 
 module.exports = {
     insertOHLC: function (callback, data, pair, interval, count, insert_date, timestamp, param_fw1) {
-        var ohlcs = prepareData(data, pair, interval, count, insert_date, insert_hour, timestamp);
+        var ohlcs = prepareData(data, pair, interval, count, insert_date, timestamp);
         new Promise(function (resolve, reject) {
             if(myAssetPairs.length > 0){
 				var getConnection = require('../../config/db_mysql_config');

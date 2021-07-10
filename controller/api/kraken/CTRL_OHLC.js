@@ -42,6 +42,11 @@ module.exports = {
 
         function STEP_API_loadOHLC(err, count, allPairs) {
             if(!err){
+				// FIRST LOAD
+				if(count > 0){	
+					logger.warn("*** CONTROLLER *** -> First OHLC Loading ... ");
+				}
+				
                 for(let i=0; i<allPairs.length; i++){
                     if (i+1 == allPairs.length){
                         API_OHLC.kraken_OHLC_1h(STEP_DB_insertOHLC, allPairs[i].APR_NAME, count, true);
