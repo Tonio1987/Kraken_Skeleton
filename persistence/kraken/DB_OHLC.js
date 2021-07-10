@@ -31,23 +31,23 @@ function prepareData(data, pair, interval, count, insert_date, timestamp){
 		
 		let id = uuidv4();
 		
-        var ohlc = {
+        var ohlc = [
 			id,
-            insert_date: insert_date,
-            insert_timestamp: timestamp,
-            pair: pair,
-            interval: interval,
-            ime: time,
-            time_date: time_date,
-            time_hour: time_hour,
-            open: data[pair][i][1],
-            high: data[pair][i][2],
-            low: data[pair][i][3],
-            close: data[pair][i][4],
-            swap: data[pair][i][5],
-            volume: data[pair][i][6],
-            count: data[pair][i][7]
-        }
+            insert_date,
+            timestamp,
+            pair,
+            interval,
+            time,
+            time_date,
+            time_hour,
+            data[pair][i][1],
+            data[pair][i][2],
+            data[pair][i][3],
+            data[pair][i][4],
+            data[pair][i][5],
+            data[pair][i][6],
+            data[pair][i][7]
+        ]
         ohlcs.push(ohlc);
     }else{
         // FIRST LOAD
@@ -69,23 +69,23 @@ function prepareData(data, pair, interval, count, insert_date, timestamp){
 			
 			let id = uuidv4();
 			
-            var ohlc = {
+            var ohlc = [
 				id,
-                insert_date: insert_date,
-                insert_timestamp: timestamp,
-                pair: pair,
-                interval: interval,
-                ime: time,
-				time_date: time_date,
-				time_hour: time_hour,
-                open: data[pair][i][1],
-                high: data[pair][i][2],
-                low: data[pair][i][3],
-                close: data[pair][i][4],
-                swap: data[pair][i][5],
-                volume: data[pair][i][6],
-                count: data[pair][i][7]
-            }
+				insert_date,
+				timestamp,
+				pair,
+				interval,
+				time,
+				time_date,
+				time_hour,
+				data[pair][i][1],
+				data[pair][i][2],
+				data[pair][i][3],
+				data[pair][i][4],
+				data[pair][i][5],
+				data[pair][i][6],
+				data[pair][i][7]
+            ]
             ohlcs.push(ohlc);
         }
     }
