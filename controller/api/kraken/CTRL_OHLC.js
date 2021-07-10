@@ -23,7 +23,7 @@ module.exports = {
         let insert_date = moment().format('YYYY-MM-DD HH:mm:ss');
         let timestamp = new Date().getTime();
         async.waterfall([
-            STEP_DB_getAllPairsName,
+            STEP_DB_getAllEurPairsName,
             STEP_DB_countOHLC,
             STEP_API_loadOHLC,
             STEP_DB_insertOHLC,
@@ -32,8 +32,8 @@ module.exports = {
             // Nothing to do here
         });
 
-        function STEP_DB_getAllPairsName() {
-            DB_AssetPairs.getAllPairsName(STEP_DB_countOHLC);
+        function STEP_DB_getAllEurPairsName() {
+            DB_AssetPairs.getAllEirPairsName(STEP_DB_countOHLC);
         }
 
         function STEP_DB_countOHLC(err, allPairs) {
