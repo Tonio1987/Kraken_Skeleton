@@ -16,7 +16,7 @@ function prepareData(data, pair, interval, count, insert_date, timestamp){
         let i = data[pair].length-1;
         if(interval === "1_HOUR"){
             time = data[pair][i][0];
-            time_date = moment(time).format('L');
+            time_date = moment(time).format('YYYY-MM-DD');
             time_hour = moment(time).format('LTS');
         }else{
             var len = Math.ceil(Math.log(data[pair][i][0] + 1) / Math.LN10);
@@ -54,7 +54,7 @@ function prepareData(data, pair, interval, count, insert_date, timestamp){
         for(let i=0; i<data[pair].length; i++){
             if(interval === "1_HOUR"){
                 time = data[pair][i][0];
-				time_date = moment(time).format('L');
+				time_date = moment(time).format('YYYY-MM-DD');
 				time_hour = moment(time).format('LTS');
             }else{
                 var len = Math.ceil(Math.log(data[pair][i][0] + 1) / Math.LN10);
