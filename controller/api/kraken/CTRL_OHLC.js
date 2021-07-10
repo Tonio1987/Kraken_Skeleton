@@ -3,9 +3,9 @@ var log4js = require('log4js');
 var logger = log4js.getLogger();
 logger.level = 'debug';
 
-const DB_AssetPairs = require('../../persistence/kraken/DB_AssetPairs');
-const DB_OHLC = require('../../persistence/kraken/DB_OHLC');
-const API_OHLC = require('../../api/kraken/API_OHLC');
+const DB_AssetPairs = require('../../../persistence/kraken/DB_AssetPairs');
+const DB_OHLC = require('../../../persistence/kraken/DB_OHLC');
+const API_OHLC = require('../../../api/kraken/API_OHLC');
 const async = require('async');
 const moment = require('moment/moment');
 
