@@ -12,7 +12,8 @@ function prepareData(data, pair, interval, count, insert_date, timestamp){
     let time = 0;
     let time_date = 0;
     let time_hour = 0;
-    if(count > 0){
+    if(count[0].NBR_OHLC > 0){
+		// POSITIONNEMENT AU DERNIER ELEMENT DU TABLEAU
         let i = data[pair].length-1;
         if(interval === "1_HOUR"){
             time = data[pair][i][0];
@@ -25,7 +26,7 @@ function prepareData(data, pair, interval, count, insert_date, timestamp){
             }else{
                 time = data[pair][i][0]*1000;
             }
-            time_date = moment(time).format('L');
+            time_date = moment(time).format('YYYY-MM-DD');
             time_hour = moment(time).format('LTS');
         }
 		
@@ -63,7 +64,7 @@ function prepareData(data, pair, interval, count, insert_date, timestamp){
                 }else{
                     time = data[pair][i][0]*1000;
                 }
-                time_date = moment(time).format('L');
+                time_date = moment(time).format('YYYY-MM-DD');
 				time_hour = moment(time).format('LTS');
             }
 			

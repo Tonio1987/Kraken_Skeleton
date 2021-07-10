@@ -43,9 +43,7 @@ module.exports = {
         function STEP_API_loadOHLC(err, count, allPairs) {
             if(!err){
 				// FIRST LOAD
-				console.log(count);
-				console.log(count[0]);
-				if(count === 0){
+				if(count[0].NBR_OHLC === 0){
 					logger.warn("*** CONTROLLER *** -> First OHLC Loading ... ");
 				}
 				
@@ -62,19 +60,11 @@ module.exports = {
             }
         }
         function STEP_DB_insertOHLC(err, data, pair, count, iter) {
-			let tentative = 2;
             if(!err){
 				logger.warn("*** CONTROLLER *** Loading OHLC for pair : "+ pair);
                 DB_OHLC.insertOHLC(STEP_finish, data, pair, "1_HOUR", count, insert_date, timestamp, iter);
             }else{
-				logger.error("*** CONTROLLER *** Erreur with pair : "+pair);
-				if(tentative < 3){
-					logger.warn("*** CONTROLLER *** Tentative #"+tentative+" for pair : "+pair);
-					tentative++;
-					API_OHLC.kraken_OHLC_1h(STEP_DB_insertOHLC, pair, count, iter);
-				}else{
-					STEP_finish(err);
-				}
+				STEP_finish(err);
             }
         }
         function STEP_finish(err, data, iter) {
